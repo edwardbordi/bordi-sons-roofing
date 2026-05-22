@@ -3,7 +3,7 @@ import { FadeIn } from "@/components/FadeIn";
 
 export function CTASection() {
   return (
-    <section className="bg-red-600 px-4 py-24 sm:px-6 lg:px-8">
+    <section id="cta" className="bg-red-600 px-4 py-24 sm:px-6 lg:px-8">
       <FadeIn className="mx-auto flex max-w-3xl flex-col items-center text-center">
         <h2 className="text-4xl font-bold text-white md:text-5xl">
           Ready to Protect Your Home?

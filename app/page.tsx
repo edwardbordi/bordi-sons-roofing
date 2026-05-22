@@ -1,4 +1,5 @@
 import { Navbar } from "@/components/Navbar";
+import ScrollNav from "@/components/ScrollNav";
 import { Hero } from "@/components/Hero";
 import { ScrollAnimation } from "@/components/ScrollAnimation";
 import { Features } from "@/components/Features";
@@ -10,6 +11,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-white font-sans text-slate-900">
       <Navbar />
+      <ScrollNav />
       <main>
         <Hero />
         <ScrollAnimation />

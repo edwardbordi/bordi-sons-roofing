@@ -4,10 +4,10 @@ import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 
 const navLinks = [
-  { label: "Services", href: "#services" },
+  { label: "Services", href: "#features" },
   { label: "Process", href: "#process" },
-  { label: "About", href: "#about" },
-  { label: "Reviews", href: "#reviews" },
+  { label: "About", href: "#trust" },
+  { label: "Reviews", href: "#cta" },
 ];
 
 export function Navbar() {

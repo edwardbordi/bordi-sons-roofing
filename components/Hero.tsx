@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 
 export function Hero() {
   return (
-    <section className="relative flex min-h-screen w-full flex-col items-center justify-center bg-white pt-24 pb-12">
+    <section id="hero" className="relative flex min-h-screen w-full flex-col items-center justify-center bg-white pt-24 pb-12">
       {/* TEXT BLOCK — centered in the viewport */}
       <motion.div
         initial={{ opacity: 0, y: 24 }}

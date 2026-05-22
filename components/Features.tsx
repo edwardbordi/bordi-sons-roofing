@@ -50,7 +50,7 @@ const features: Feature[] = [
 
 export function Features() {
   return (
-    <section id="services" className="bg-stone-50 px-4 py-24 sm:px-6 lg:px-8">
+    <section id="features" className="bg-stone-50 px-4 py-24 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl">
         <FadeIn className="mx-auto max-w-2xl text-center">
           <h2 className="text-4xl font-bold text-slate-900 md:text-5xl">

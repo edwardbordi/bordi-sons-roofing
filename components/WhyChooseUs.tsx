@@ -31,7 +31,7 @@ const reasons: Reason[] = [
 
 export function WhyChooseUs() {
   return (
-    <section id="about" className="bg-white px-4 py-24 sm:px-6 lg:px-8">
+    <section id="trust" className="bg-white px-4 py-24 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-6xl">
         <FadeIn className="mx-auto max-w-2xl text-center">
           <h2 className="text-4xl font-bold text-slate-900 md:text-5xl">

@@ -28,7 +28,7 @@ function InstagramIcon(props: SVGProps<SVGSVGElement>) {
 
 export function Footer() {
   return (
-    <footer className="border-t border-slate-200 bg-stone-100">
+    <footer id="footer" className="border-t border-slate-200 bg-stone-100">
       {/* Full-width horizontal Italian flag accent: green / white / red */}
       <div className="flex h-1 w-full" aria-hidden="true">
         <div className="flex-1 bg-green-700" />
