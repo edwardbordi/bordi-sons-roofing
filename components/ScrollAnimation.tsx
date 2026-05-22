@@ -59,7 +59,7 @@ const labels: LabelConfig[] = [
     name: "LEAK BARRIER",
     description:
       "Rubberized membrane along eaves and valleys. Stops ice dams and wind-driven rain in their tracks.",
-    dotX: 720, dotY: 185, textX: 1080, textY: 185, lineEndX: 1070, side: "right", threshold: 0.75,
+    dotX: 720, dotY: 285, textX: 1080, textY: 285, lineEndX: 1070, side: "right", threshold: 0.75,
   },
   {
     name: "ROOF DECK PROTECTION",
