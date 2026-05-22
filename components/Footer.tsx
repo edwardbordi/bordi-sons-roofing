@@ -1,4 +1,5 @@
 import type { SVGProps } from "react";
+import Image from "next/image";
 import { FadeIn } from "@/components/FadeIn";
 
 const serviceLinks = [
@@ -41,9 +42,13 @@ export function Footer() {
           <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
             {/* Brand */}
             <div>
-              <p className="text-lg font-bold tracking-tight text-slate-900">
-                Bordi &amp; Sons
-              </p>
+              <Image
+                src="/images/bordi-logo.png"
+                alt="Bordi & Sons Roofing"
+                width={120}
+                height={120}
+                className="h-24 w-auto mb-4"
+              />
               <p className="mt-3 max-w-xs text-sm text-slate-700">
                 Premium GAF-certified roofing systems built to protect what
                 matters most.

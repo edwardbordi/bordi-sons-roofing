@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
 const navLinks = [
@@ -27,20 +29,15 @@ export function Navbar() {
       }`}
     >
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center">
-          {/* Vertical Italian flag accent: green / white / red */}
-          <div className="mr-3 flex h-6 items-stretch" aria-hidden="true">
-            <span className="w-[3px] bg-green-700" />
-            <span className="w-[3px] border-y border-slate-200 bg-white" />
-            <span className="w-[3px] bg-red-600" />
-          </div>
-          <a
-            href="#"
-            className="text-lg font-bold tracking-tight text-slate-900"
-          >
-            Bordi &amp; Sons
-          </a>
-        </div>
+        <Link href="/" className="flex items-center">
+          <Image
+            src="/images/bordi-logo.png"
+            alt="Bordi & Sons Roofing"
+            width={56}
+            height={56}
+            className="h-12 md:h-14 w-auto"
+          />
+        </Link>
 
         <nav className="hidden items-center gap-8 md:flex">
           {navLinks.map((link) => (
