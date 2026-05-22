@@ -12,10 +12,31 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const ogImage = {
+  url: "/images/hero-image.jpg",
+  width: 1284,
+  height: 716,
+  alt: "The Bordi & Sons farmhouse",
+};
+
 export const metadata: Metadata = {
   title: "Bordi & Sons Roofing",
   description:
     "Premium GAF-certified roofing services. Quality you can trust.",
+  openGraph: {
+    title: "Bordi & Sons Roofing",
+    description:
+      "Premium GAF-certified roofing services. Quality you can trust.",
+    type: "website",
+    images: [ogImage],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Bordi & Sons Roofing",
+    description:
+      "Premium GAF-certified roofing services. Quality you can trust.",
+    images: [ogImage],
+  },
 };
 
 export default function RootLayout({

@@ -1,19 +1,18 @@
 "use client";
 
-import Image from "next/image";
 import { motion } from "framer-motion";
 import { Award, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export function Hero() {
   return (
-    <section className="relative w-full bg-white">
-      {/* TEXT BLOCK */}
+    <section className="relative flex min-h-screen w-full flex-col items-center justify-center bg-white pt-24 pb-12">
+      {/* TEXT BLOCK — centered in the viewport */}
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, ease: "easeOut" }}
-        className="mx-auto max-w-3xl px-6 pt-32 pb-12 text-center md:pt-40 md:pb-16"
+        className="mx-auto max-w-3xl px-6 text-center"
       >
         {/* Trust-signal kicker */}
         <div className="mb-4 flex items-center justify-center gap-2">
@@ -48,7 +47,7 @@ export function Hero() {
           </Button>
         </div>
 
-        {/* Trust indicators — last item, no bottom margin */}
+        {/* Trust indicators */}
         <div className="flex items-center justify-center gap-3 text-sm text-slate-500">
           <span>Free Inspection</span>
           <span aria-hidden="true">•</span>
@@ -58,27 +57,11 @@ export function Hero() {
         </div>
       </motion.div>
 
-      {/* IMAGE BLOCK — staggered slightly after the text */}
-      <motion.div
-        initial={{ opacity: 0, y: 24 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7, ease: "easeOut", delay: 0.2 }}
-        className="mx-auto max-w-5xl px-6 pb-16"
-      >
-        <Image
-          src="/images/hero-image.jpg"
-          alt="The Bordi & Sons farmhouse — premium GAF-certified roofing"
-          width={1284}
-          height={716}
-          priority
-          className="h-auto w-full"
-        />
-      </motion.div>
-
-      {/* CHEVRON — "scroll to see more" cue */}
-      <div className="flex justify-center pb-12">
-        <ChevronDown className="size-8 animate-bounce text-slate-400" aria-hidden="true" />
-      </div>
+      {/* CHEVRON — "scroll to see more" cue beneath the text */}
+      <ChevronDown
+        className="mt-16 size-8 animate-bounce text-slate-400"
+        aria-hidden="true"
+      />
     </section>
   );
 }
