@@ -35,37 +35,37 @@ const labels: LabelConfig[] = [
     name: "RIDGE CAP SHINGLES",
     description:
       "Seals the ridge — the most vulnerable point on any roof. Built to withstand wind and weather.",
-    dotX: 760, dotY: 70, textX: 1080, textY: 70, lineEndX: 1070, side: "right", threshold: 0.2,
+    dotX: 680, dotY: 70, textX: 1080, textY: 70, lineEndX: 1070, side: "right", threshold: 0.2,
   },
   {
-    name: "COBRA RIDGE VENT",
+    name: "RIDGE VENT",
     description:
-      "Continuous attic ventilation regulates temperature and moisture. Extends roof life by years.",
-    dotX: 620, dotY: 100, textX: 210, textY: 100, lineEndX: 220, side: "left", threshold: 0.32,
+      "Continuous attic ventilation regulates temperature and moisture, releasing trapped heat. Extends roof life by years.",
+    dotX: 490, dotY: 70, textX: 210, textY: 70, lineEndX: 220, side: "left", threshold: 0.32,
   },
   {
     name: "ARCHITECTURAL SHINGLES",
     description:
-      "Dimensional charcoal shingles. The visible heart of your roofing system, built for decades of protection.",
-    dotX: 720, dotY: 132, textX: 1080, textY: 132, lineEndX: 1070, side: "right", threshold: 0.5,
+      "Beautiful dimensional shingles — the striking, visible heart of your roofing system. Available in dozens of colors to match any taste or home, and built for decades of dependable protection.",
+    dotX: 720, dotY: 137, textX: 1080, textY: 137, lineEndX: 1070, side: "right", threshold: 0.5,
   },
   {
     name: "STARTER STRIP SHINGLES",
     description:
-      "Premium pre-cut strips create the first sealed row at the eaves. Locks every shingle above firmly in place.",
-    dotX: 620, dotY: 158, textX: 210, textY: 158, lineEndX: 220, side: "left", threshold: 0.62,
+      "Premium pre-cut strips create the first sealed row at the eaves. Locks every shingle above firmly in place, preventing blow-offs.",
+    dotX: 620, dotY: 210, textX: 210, textY: 210, lineEndX: 220, side: "left", threshold: 0.62,
   },
   {
     name: "LEAK BARRIER",
     description:
-      "Rubberized membrane along eaves and valleys. Stops ice dams and wind-driven rain in their tracks.",
-    dotX: 720, dotY: 285, textX: 1080, textY: 285, lineEndX: 1070, side: "right", threshold: 0.75,
+      "Self-adhering rubberized membrane along vulnerable eaves and valleys. Stops ice dams and wind-driven rain dead in their tracks.",
+    dotX: 720, dotY: 235, textX: 1080, textY: 235, lineEndX: 1070, side: "right", threshold: 0.75,
   },
   {
     name: "ROOF DECK PROTECTION",
     description:
-      "Synthetic underlayment is your roof's foundation. Protects your home from water before shingles are even installed.",
-    dotX: 620, dotY: 210, textX: 210, textY: 210, lineEndX: 220, side: "left", threshold: 0.88,
+      "Synthetic underlayment is your roof's foundation. Protects your home from water and weather before shingles are even installed.",
+    dotX: 430, dotY: 140, textX: 210, textY: 140, lineEndX: 220, side: "left", threshold: 0.88,
   },
 ];
 
@@ -161,7 +161,7 @@ export function ScrollAnimation() {
 
       // Arrows (dot + line): hold until the components have nearly reached
       // their final positions, then snap all 6 in together over a 3% range.
-      const arrowsThreshold = 0.95;
+      const arrowsThreshold = 0.75;
       const arrowOpacity = Math.max(
         0,
         Math.min(1, (progress - arrowsThreshold) / 0.03)
