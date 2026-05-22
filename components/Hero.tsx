@@ -18,6 +18,9 @@ export function Hero() {
         className="object-cover object-bottom"
       />
 
+      {/* Layer 1.5 — readability scrim: dense white at top, clear over the lawn */}
+      <div className="pointer-events-none absolute inset-x-0 top-0 z-[5] h-[70%] bg-gradient-to-b from-white/85 via-white/50 to-transparent" />
+
       {/* Layer 2 — text floating in the upper white sky */}
       <motion.div
         initial={{ opacity: 0, y: 24 }}
@@ -69,7 +72,7 @@ export function Hero() {
       </motion.div>
 
       {/* Layer 3 — scroll indicator over the lawn */}
-      <div className="absolute bottom-8 left-1/2 z-10 -translate-x-1/2 text-slate-700">
+      <div className="absolute bottom-16 left-1/2 z-10 -translate-x-1/2 text-slate-700">
         <ChevronDown className="size-8 animate-bounce" aria-hidden="true" />
       </div>
     </section>
