@@ -26,44 +26,46 @@ type LabelConfig = {
   threshold: number; // scroll progress at which the label fades in
 };
 
-// Coordinates in SVG units (viewBox 0 0 1284 716) — tuned against the
-// exploded layers in frame_0151.jpg.
+// Coordinates in SVG units (viewBox 0 0 1284 716). dotY values tuned so each
+// dot lands on its floating layer in frame_0151.jpg (the spec's first-pass
+// y=150..360 sat ~80-150px too low, on the tan deck/facade — see commit msg).
+// textY mirrors dotY so each connector line is horizontal.
 const labels: LabelConfig[] = [
   {
     name: "RIDGE CAP SHINGLES",
     description:
       "Seals the ridge — the most vulnerable point on any roof. Built to withstand wind and weather.",
-    dotX: 760, dotY: 165, textX: 1080, textY: 163, lineEndX: 1070, side: "right", threshold: 0.2,
+    dotX: 760, dotY: 70, textX: 1080, textY: 70, lineEndX: 1070, side: "right", threshold: 0.2,
   },
   {
     name: "COBRA RIDGE VENT",
     description:
       "Continuous attic ventilation regulates temperature and moisture. Extends roof life by years.",
-    dotX: 620, dotY: 205, textX: 210, textY: 203, lineEndX: 220, side: "left", threshold: 0.32,
+    dotX: 620, dotY: 100, textX: 210, textY: 100, lineEndX: 220, side: "left", threshold: 0.32,
   },
   {
     name: "ARCHITECTURAL SHINGLES",
     description:
       "Dimensional charcoal shingles. The visible heart of your roofing system, built for decades of protection.",
-    dotX: 720, dotY: 255, textX: 1080, textY: 253, lineEndX: 1070, side: "right", threshold: 0.5,
+    dotX: 720, dotY: 132, textX: 1080, textY: 132, lineEndX: 1070, side: "right", threshold: 0.5,
   },
   {
     name: "STARTER STRIP SHINGLES",
     description:
       "Premium pre-cut strips create the first sealed row at the eaves. Locks every shingle above firmly in place.",
-    dotX: 620, dotY: 305, textX: 210, textY: 303, lineEndX: 220, side: "left", threshold: 0.62,
+    dotX: 620, dotY: 158, textX: 210, textY: 158, lineEndX: 220, side: "left", threshold: 0.62,
   },
   {
     name: "LEAK BARRIER",
     description:
       "Rubberized membrane along eaves and valleys. Stops ice dams and wind-driven rain in their tracks.",
-    dotX: 720, dotY: 340, textX: 1080, textY: 338, lineEndX: 1070, side: "right", threshold: 0.75,
+    dotX: 720, dotY: 185, textX: 1080, textY: 185, lineEndX: 1070, side: "right", threshold: 0.75,
   },
   {
     name: "ROOF DECK PROTECTION",
     description:
       "Synthetic underlayment is your roof's foundation. Protects your home from water before shingles are even installed.",
-    dotX: 620, dotY: 380, textX: 210, textY: 378, lineEndX: 220, side: "left", threshold: 0.88,
+    dotX: 620, dotY: 210, textX: 210, textY: 210, lineEndX: 220, side: "left", threshold: 0.88,
   },
 ];
 
@@ -74,8 +76,9 @@ export function ScrollAnimation() {
   const imagesRef = useRef<HTMLImageElement[]>([]);
   const prevFrameRef = useRef(-1);
   const rafRef = useRef<number | null>(null);
-  // Label <g> groups, updated imperatively to avoid re-renders on scroll.
-  const labelRefs = useRef<(SVGGElement | null)[]>([]);
+  // Label subgroups, updated imperatively to avoid re-renders on scroll.
+  const textRefs = useRef<(SVGGElement | null)[]>([]);
+  const arrowRefs = useRef<(SVGGElement | null)[]>([]);
 
   const [loaded, setLoaded] = useState(false);
   const [loadedCount, setLoadedCount] = useState(0);
@@ -145,15 +148,26 @@ export function ScrollAnimation() {
       );
       if (frameIndex !== prevFrameRef.current) drawFrame(frameIndex);
 
-      // Drive each label's fade-in from the same scroll progress: invisible
-      // before its threshold, then fading to full over the next 5% of scroll.
+      // Text labels: fade in progressively at each label's own threshold,
+      // over the next 5% of scroll.
       labels.forEach((label, i) => {
-        const opacity = Math.max(
+        const textOpacity = Math.max(
           0,
           Math.min(1, (progress - label.threshold) / 0.05)
         );
-        const g = labelRefs.current[i];
-        if (g) g.style.opacity = opacity.toString();
+        const g = textRefs.current[i];
+        if (g) g.style.opacity = textOpacity.toString();
+      });
+
+      // Arrows (dot + line): hold until the components have nearly reached
+      // their final positions, then snap all 6 in together over a 3% range.
+      const arrowsThreshold = 0.95;
+      const arrowOpacity = Math.max(
+        0,
+        Math.min(1, (progress - arrowsThreshold) / 0.03)
+      );
+      arrowRefs.current.forEach((arrowEl) => {
+        if (arrowEl) arrowEl.style.opacity = arrowOpacity.toString();
       });
     };
 
@@ -209,60 +223,73 @@ export function ScrollAnimation() {
           <svg
             viewBox="0 0 1284 716"
             preserveAspectRatio="xMidYMid meet"
+            overflow="visible"
             className="pointer-events-none absolute inset-0 mx-auto h-auto w-full max-w-5xl"
             aria-hidden="true"
           >
             {labels.map((label, i) => (
-              <g
-                key={label.name}
-                ref={(el) => {
-                  labelRefs.current[i] = el;
-                }}
-                opacity={0}
-                style={{ transition: "opacity 200ms ease-out" }}
-              >
-                {/* Line first, dot second — so the dot sits in front. */}
-                <line
-                  x1={label.dotX}
-                  y1={label.dotY}
-                  x2={label.lineEndX}
-                  y2={label.dotY}
-                  stroke="#475569"
-                  strokeWidth={1}
-                  strokeDasharray="3 3"
-                />
-                <circle cx={label.dotX} cy={label.dotY} r={4} fill="#DC2626" />
-                <text
-                  x={label.textX}
-                  y={label.textY}
-                  textAnchor={label.side === "right" ? "start" : "end"}
-                  fontSize={11}
-                  fontWeight={600}
-                  letterSpacing="2"
-                  fill="#0F172A"
+              <g key={label.name}>
+                {/* Arrow (line + dot) — all six snap in together near the end. */}
+                <g
+                  ref={(el) => {
+                    arrowRefs.current[i] = el;
+                  }}
+                  opacity={0}
+                  style={{ transition: "opacity 300ms ease-out" }}
                 >
-                  {label.name}
-                </text>
-                <foreignObject
-                  x={label.side === "right" ? label.textX : label.textX - 240}
-                  y={label.textY + 6}
-                  width="240"
-                  height="60"
-                  style={{ overflow: "visible" }}
+                  {/* Line first, dot second — so the dot sits in front. */}
+                  <line
+                    x1={label.dotX}
+                    y1={label.dotY}
+                    x2={label.lineEndX}
+                    y2={label.dotY}
+                    stroke="#475569"
+                    strokeWidth={1}
+                    strokeDasharray="3 3"
+                  />
+                  <circle cx={label.dotX} cy={label.dotY} r={4} fill="#DC2626" />
+                </g>
+
+                {/* Text (title + description) — fades in at this label's threshold. */}
+                <g
+                  ref={(el) => {
+                    textRefs.current[i] = el;
+                  }}
+                  opacity={0}
+                  style={{ transition: "opacity 200ms ease-out" }}
                 >
-                  <div
-                    style={{
-                      fontSize: "10px",
-                      color: "#475569",
-                      lineHeight: "1.4",
-                      textAlign: label.side === "right" ? "left" : "right",
-                      fontFamily: "system-ui, -apple-system, sans-serif",
-                      fontWeight: 400,
-                    }}
+                  <text
+                    x={label.textX}
+                    y={label.textY}
+                    textAnchor={label.side === "right" ? "start" : "end"}
+                    fontSize={11}
+                    fontWeight={600}
+                    letterSpacing="2"
+                    fill="#0F172A"
                   >
-                    {label.description}
-                  </div>
-                </foreignObject>
+                    {label.name}
+                  </text>
+                  <foreignObject
+                    x={label.side === "right" ? label.textX : label.textX - 240}
+                    y={label.textY + 6}
+                    width="240"
+                    height="60"
+                    style={{ overflow: "visible" }}
+                  >
+                    <div
+                      style={{
+                        fontSize: "10px",
+                        color: "#475569",
+                        lineHeight: "1.4",
+                        textAlign: label.side === "right" ? "left" : "right",
+                        fontFamily: "system-ui, -apple-system, sans-serif",
+                        fontWeight: 400,
+                      }}
+                    >
+                      {label.description}
+                    </div>
+                  </foreignObject>
+                </g>
               </g>
             ))}
           </svg>
