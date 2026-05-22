@@ -31,10 +31,10 @@ const reasons: Reason[] = [
 
 export function WhyChooseUs() {
   return (
-    <section id="about" className="px-4 py-24 sm:px-6 lg:px-8">
+    <section id="about" className="bg-white px-4 py-24 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-6xl">
         <FadeIn className="mx-auto max-w-2xl text-center">
-          <h2 className="text-4xl font-bold text-white md:text-5xl">
+          <h2 className="text-4xl font-bold text-slate-900 md:text-5xl">
             Built on Trust. Backed by GAF.
           </h2>
         </FadeIn>
@@ -48,11 +48,11 @@ export function WhyChooseUs() {
                 delay={i * 0.1}
                 className="flex flex-col items-center text-center"
               >
-                <Icon className="size-12 text-amber-500" />
-                <h3 className="mt-6 text-xl font-semibold text-white">
+                <Icon className="size-12 text-green-700" />
+                <h3 className="mt-6 text-xl font-semibold text-slate-900">
                   {reason.title}
                 </h3>
-                <p className="mt-3 text-slate-400">{reason.description}</p>
+                <p className="mt-3 text-slate-600">{reason.description}</p>
               </FadeIn>
             );
           })}

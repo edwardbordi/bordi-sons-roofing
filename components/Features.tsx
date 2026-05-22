@@ -50,13 +50,13 @@ const features: Feature[] = [
 
 export function Features() {
   return (
-    <section id="services" className="px-4 py-24 sm:px-6 lg:px-8">
+    <section id="services" className="bg-stone-50 px-4 py-24 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl">
         <FadeIn className="mx-auto max-w-2xl text-center">
-          <h2 className="text-4xl font-bold text-white md:text-5xl">
+          <h2 className="text-4xl font-bold text-slate-900 md:text-5xl">
             Anatomy of a Premium Roof
           </h2>
-          <p className="mt-4 text-lg text-slate-400">
+          <p className="mt-4 text-lg text-slate-600">
             Every layer matters. Here&apos;s what&apos;s protecting your home.
           </p>
         </FadeIn>
@@ -66,15 +66,15 @@ export function Features() {
             const Icon = feature.icon;
             return (
               <FadeIn key={feature.title} delay={i * 0.05}>
-                <Card className="h-full border border-slate-800 bg-slate-900 text-slate-100 ring-0">
+                <Card className="h-full border border-slate-200 bg-white text-slate-900 shadow-sm ring-0">
                   <CardHeader>
-                    <Icon className="size-10 text-amber-500" />
-                    <CardTitle className="mt-4 text-xl text-white">
+                    <Icon className="size-10 text-red-600" />
+                    <CardTitle className="mt-4 text-xl font-semibold text-slate-900">
                       {feature.title}
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-slate-400">{feature.description}</p>
+                    <p className="text-slate-600">{feature.description}</p>
                   </CardContent>
                 </Card>
               </FadeIn>

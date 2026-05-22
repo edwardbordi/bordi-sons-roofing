@@ -28,92 +28,101 @@ function InstagramIcon(props: SVGProps<SVGSVGElement>) {
 
 export function Footer() {
   return (
-    <footer className="border-t border-slate-800 bg-slate-900 px-4 py-16 sm:px-6 lg:px-8">
-      <FadeIn className="mx-auto max-w-7xl">
-        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
-          {/* Brand */}
-          <div>
-            <p className="text-lg font-bold tracking-tight text-slate-100">
-              Bordi &amp; Sons
-            </p>
-            <p className="mt-3 max-w-xs text-sm text-slate-400">
-              Premium GAF-certified roofing systems built to protect what
-              matters most.
-            </p>
-          </div>
+    <footer className="border-t border-slate-800 bg-slate-900">
+      {/* Full-width horizontal Italian flag accent: green / white / red */}
+      <div className="flex h-1 w-full" aria-hidden="true">
+        <div className="flex-1 bg-green-700" />
+        <div className="flex-1 bg-white" />
+        <div className="flex-1 bg-red-600" />
+      </div>
 
-          {/* Services */}
-          <div>
-            <h4 className="text-sm font-semibold tracking-wide text-slate-200 uppercase">
-              Services
-            </h4>
-            <ul className="mt-4 space-y-2 text-sm text-slate-400">
-              {serviceLinks.map((label) => (
-                <li key={label}>
+      <div className="px-4 py-16 sm:px-6 lg:px-8">
+        <FadeIn className="mx-auto max-w-7xl">
+          <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
+            {/* Brand */}
+            <div>
+              <p className="text-lg font-bold tracking-tight text-white">
+                Bordi &amp; Sons
+              </p>
+              <p className="mt-3 max-w-xs text-sm text-slate-300">
+                Premium GAF-certified roofing systems built to protect what
+                matters most.
+              </p>
+            </div>
+
+            {/* Services */}
+            <div>
+              <h4 className="text-sm font-semibold tracking-wide text-white uppercase">
+                Services
+              </h4>
+              <ul className="mt-4 space-y-2 text-sm text-slate-300">
+                {serviceLinks.map((label) => (
+                  <li key={label}>
+                    <a
+                      href="#services"
+                      className="transition-colors hover:text-white"
+                    >
+                      {label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Contact */}
+            <div>
+              <h4 className="text-sm font-semibold tracking-wide text-white uppercase">
+                Contact
+              </h4>
+              <ul className="mt-4 space-y-2 text-sm text-slate-300">
+                <li>
                   <a
-                    href="#services"
+                    href="tel:+15551234567"
                     className="transition-colors hover:text-white"
                   >
-                    {label}
+                    (555) 123-4567
                   </a>
                 </li>
-              ))}
-            </ul>
-          </div>
+                <li>
+                  <a
+                    href="mailto:hello@bordiandsons.com"
+                    className="transition-colors hover:text-white"
+                  >
+                    hello@bordiandsons.com
+                  </a>
+                </li>
+              </ul>
+            </div>
 
-          {/* Contact */}
-          <div>
-            <h4 className="text-sm font-semibold tracking-wide text-slate-200 uppercase">
-              Contact
-            </h4>
-            <ul className="mt-4 space-y-2 text-sm text-slate-400">
-              <li>
+            {/* Social */}
+            <div>
+              <h4 className="text-sm font-semibold tracking-wide text-white uppercase">
+                Follow Us
+              </h4>
+              <div className="mt-4 flex gap-4 text-slate-400">
                 <a
-                  href="tel:+15551234567"
+                  href="#"
+                  aria-label="Facebook"
                   className="transition-colors hover:text-white"
                 >
-                  (555) 123-4567
+                  <FacebookIcon className="size-5" />
                 </a>
-              </li>
-              <li>
                 <a
-                  href="mailto:hello@bordiandsons.com"
+                  href="#"
+                  aria-label="Instagram"
                   className="transition-colors hover:text-white"
                 >
-                  hello@bordiandsons.com
+                  <InstagramIcon className="size-5" />
                 </a>
-              </li>
-            </ul>
-          </div>
-
-          {/* Social */}
-          <div>
-            <h4 className="text-sm font-semibold tracking-wide text-slate-200 uppercase">
-              Follow Us
-            </h4>
-            <div className="mt-4 flex gap-4 text-slate-400">
-              <a
-                href="#"
-                aria-label="Facebook"
-                className="transition-colors hover:text-white"
-              >
-                <FacebookIcon className="size-5" />
-              </a>
-              <a
-                href="#"
-                aria-label="Instagram"
-                className="transition-colors hover:text-white"
-              >
-                <InstagramIcon className="size-5" />
-              </a>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div className="mt-12 border-t border-slate-800 pt-8 text-center text-sm text-slate-500">
-          © 2026 Bordi &amp; Sons Roofing. All rights reserved.
-        </div>
-      </FadeIn>
+          <div className="mt-12 border-t border-slate-800 pt-8 text-center text-sm text-slate-500">
+            © 2026 Bordi &amp; Sons Roofing. All rights reserved.
+          </div>
+        </FadeIn>
+      </div>
     </footer>
   );
 }
