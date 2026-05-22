@@ -14,6 +14,28 @@ const framePath = (frame: number) =>
 const clamp = (value: number, min: number, max: number) =>
   Math.min(Math.max(value, min), max);
 
+type LabelConfig = {
+  name: string;
+  dotX: number; // target position (where the component sits)
+  dotY: number;
+  textX: number; // text position (offset to the side)
+  textY: number;
+  lineEndX: number; // where the connector line ends, near the text
+  side: "left" | "right";
+  threshold: number; // scroll progress at which the label fades in
+};
+
+// First-pass coordinates in SVG units (viewBox 0 0 1284 716). These are
+// approximate — tune against where each component lands in frame_0151.jpg.
+const labels: LabelConfig[] = [
+  { name: "RIDGE CAP SHINGLES", dotX: 800, dotY: 75, textX: 1080, textY: 78, lineEndX: 1070, side: "right", threshold: 0.2 },
+  { name: "COBRA RIDGE VENT", dotX: 600, dotY: 130, textX: 210, textY: 133, lineEndX: 220, side: "left", threshold: 0.32 },
+  { name: "ARCHITECTURAL SHINGLES", dotX: 700, dotY: 200, textX: 1080, textY: 203, lineEndX: 1070, side: "right", threshold: 0.5 },
+  { name: "STARTER STRIP SHINGLES", dotX: 600, dotY: 270, textX: 210, textY: 273, lineEndX: 220, side: "left", threshold: 0.62 },
+  { name: "LEAK BARRIER", dotX: 700, dotY: 320, textX: 1080, textY: 323, lineEndX: 1070, side: "right", threshold: 0.75 },
+  { name: "ROOF DECK PROTECTION", dotX: 600, dotY: 380, textX: 210, textY: 383, lineEndX: 220, side: "left", threshold: 0.88 },
+];
+
 export function ScrollAnimation() {
   const sectionRef = useRef<HTMLElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -21,6 +43,8 @@ export function ScrollAnimation() {
   const imagesRef = useRef<HTMLImageElement[]>([]);
   const prevFrameRef = useRef(-1);
   const rafRef = useRef<number | null>(null);
+  // Label <g> groups, updated imperatively to avoid re-renders on scroll.
+  const labelRefs = useRef<(SVGGElement | null)[]>([]);
 
   const [loaded, setLoaded] = useState(false);
   const [loadedCount, setLoadedCount] = useState(0);
@@ -89,6 +113,17 @@ export function ScrollAnimation() {
         FRAME_COUNT - 1
       );
       if (frameIndex !== prevFrameRef.current) drawFrame(frameIndex);
+
+      // Drive each label's fade-in from the same scroll progress: invisible
+      // before its threshold, then fading to full over the next 5% of scroll.
+      labels.forEach((label, i) => {
+        const opacity = Math.max(
+          0,
+          Math.min(1, (progress - label.threshold) / 0.05)
+        );
+        const g = labelRefs.current[i];
+        if (g) g.style.opacity = opacity.toString();
+      });
     };
 
     const onScroll = () => {
@@ -135,8 +170,50 @@ export function ScrollAnimation() {
             width={CANVAS_WIDTH}
             height={CANVAS_HEIGHT}
             aria-label="Animated illustration showing the six layers of a Bordi & Sons premium GAF roofing system: roof deck protection, leak barrier, starter strip shingles, architectural shingles, ridge vent, and ridge cap shingles."
-            className="h-auto w-full max-w-full bg-white [will-change:transform]"
+            className="h-auto w-full max-w-full bg-white will-change-transform"
           />
+
+          {/* Scroll-driven labels overlay — shares the canvas's box + viewBox
+              so SVG units map 1:1 onto canvas pixels at any width. */}
+          <svg
+            viewBox="0 0 1284 716"
+            preserveAspectRatio="xMidYMid meet"
+            className="pointer-events-none absolute inset-0 mx-auto h-auto w-full max-w-5xl"
+            aria-hidden="true"
+          >
+            {labels.map((label, i) => (
+              <g
+                key={label.name}
+                ref={(el) => {
+                  labelRefs.current[i] = el;
+                }}
+                opacity={0}
+                style={{ transition: "opacity 200ms ease-out" }}
+              >
+                <circle cx={label.dotX} cy={label.dotY} r={4} fill="#DC2626" />
+                <line
+                  x1={label.dotX}
+                  y1={label.dotY}
+                  x2={label.lineEndX}
+                  y2={label.dotY}
+                  stroke="#475569"
+                  strokeWidth={1}
+                  strokeDasharray="3 3"
+                />
+                <text
+                  x={label.textX}
+                  y={label.textY}
+                  textAnchor={label.side === "right" ? "start" : "end"}
+                  fontSize={11}
+                  fontWeight={600}
+                  letterSpacing="2"
+                  fill="#0F172A"
+                >
+                  {label.name}
+                </text>
+              </g>
+            ))}
+          </svg>
 
           {!loaded && (
             <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-white">
