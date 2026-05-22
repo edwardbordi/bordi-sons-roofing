@@ -1,17 +1,29 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { Award, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export function Hero() {
   return (
-    <section className="relative flex h-screen flex-col items-center justify-center bg-white px-4 text-center">
+    <section className="relative min-h-screen w-full overflow-hidden bg-white">
+      {/* Layer 1 — full-bleed farmhouse background */}
+      <Image
+        src="/images/hero-image.jpg"
+        alt="The Bordi & Sons farmhouse — premium GAF-certified roofing"
+        fill
+        priority
+        sizes="100vw"
+        className="object-cover object-bottom"
+      />
+
+      {/* Layer 2 — text floating in the upper white sky */}
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, ease: "easeOut" }}
-        className="flex max-w-4xl flex-col items-center"
+        className="relative z-10 mx-auto flex max-w-3xl flex-col items-center px-6 pt-32 text-center md:pt-40"
       >
         {/* Trust-signal kicker */}
         <div className="mb-6 flex items-center justify-center gap-2">
@@ -56,14 +68,10 @@ export function Hero() {
         </div>
       </motion.div>
 
-      <motion.div
-        className="absolute bottom-10 text-slate-400"
-        animate={{ y: [0, 12, 0] }}
-        transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
-        aria-hidden="true"
-      >
-        <ChevronDown className="size-8" />
-      </motion.div>
+      {/* Layer 3 — scroll indicator over the lawn */}
+      <div className="absolute bottom-8 left-1/2 z-10 -translate-x-1/2 text-slate-700">
+        <ChevronDown className="size-8 animate-bounce" aria-hidden="true" />
+      </div>
     </section>
   );
 }
