@@ -16,7 +16,7 @@ export function ScrollAnimation() {
             height={720}
             className="h-auto w-full max-w-full rounded-lg bg-white"
           />
-          <div className="pointer-events-none absolute inset-0 flex items-center justify-center rounded-lg bg-stone-50 p-6 text-center">
+          <div className="pointer-events-none absolute inset-0 flex items-center justify-center rounded-lg border border-dashed border-slate-300 bg-white p-6 text-center">
             <p className="text-lg font-medium text-slate-500 md:text-2xl">
               Scroll-driven roof animation — canvas implementation coming next
             </p>

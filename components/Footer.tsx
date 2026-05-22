@@ -9,7 +9,7 @@ const serviceLinks = [
 ];
 
 // lucide-react 1.x removed brand glyphs, so the social marks are inline
-// SVGs. fill="currentColor" lets the slate-400 / hover:white classes apply.
+// SVGs. fill="currentColor" lets the slate text/hover classes apply.
 function FacebookIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
@@ -28,7 +28,7 @@ function InstagramIcon(props: SVGProps<SVGSVGElement>) {
 
 export function Footer() {
   return (
-    <footer className="border-t border-slate-800 bg-slate-900">
+    <footer className="border-t border-slate-200 bg-stone-100">
       {/* Full-width horizontal Italian flag accent: green / white / red */}
       <div className="flex h-1 w-full" aria-hidden="true">
         <div className="flex-1 bg-green-700" />
@@ -41,10 +41,10 @@ export function Footer() {
           <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
             {/* Brand */}
             <div>
-              <p className="text-lg font-bold tracking-tight text-white">
+              <p className="text-lg font-bold tracking-tight text-slate-900">
                 Bordi &amp; Sons
               </p>
-              <p className="mt-3 max-w-xs text-sm text-slate-300">
+              <p className="mt-3 max-w-xs text-sm text-slate-700">
                 Premium GAF-certified roofing systems built to protect what
                 matters most.
               </p>
@@ -52,15 +52,15 @@ export function Footer() {
 
             {/* Services */}
             <div>
-              <h4 className="text-sm font-semibold tracking-wide text-white uppercase">
+              <h4 className="text-sm font-semibold tracking-wide text-slate-900 uppercase">
                 Services
               </h4>
-              <ul className="mt-4 space-y-2 text-sm text-slate-300">
+              <ul className="mt-4 space-y-2 text-sm text-slate-700">
                 {serviceLinks.map((label) => (
                   <li key={label}>
                     <a
                       href="#services"
-                      className="transition-colors hover:text-white"
+                      className="transition-colors hover:text-slate-900"
                     >
                       {label}
                     </a>
@@ -71,14 +71,14 @@ export function Footer() {
 
             {/* Contact */}
             <div>
-              <h4 className="text-sm font-semibold tracking-wide text-white uppercase">
+              <h4 className="text-sm font-semibold tracking-wide text-slate-900 uppercase">
                 Contact
               </h4>
-              <ul className="mt-4 space-y-2 text-sm text-slate-300">
+              <ul className="mt-4 space-y-2 text-sm text-slate-700">
                 <li>
                   <a
                     href="tel:+15551234567"
-                    className="transition-colors hover:text-white"
+                    className="transition-colors hover:text-slate-900"
                   >
                     (555) 123-4567
                   </a>
@@ -86,7 +86,7 @@ export function Footer() {
                 <li>
                   <a
                     href="mailto:hello@bordiandsons.com"
-                    className="transition-colors hover:text-white"
+                    className="transition-colors hover:text-slate-900"
                   >
                     hello@bordiandsons.com
                   </a>
@@ -96,21 +96,21 @@ export function Footer() {
 
             {/* Social */}
             <div>
-              <h4 className="text-sm font-semibold tracking-wide text-white uppercase">
+              <h4 className="text-sm font-semibold tracking-wide text-slate-900 uppercase">
                 Follow Us
               </h4>
-              <div className="mt-4 flex gap-4 text-slate-400">
+              <div className="mt-4 flex gap-4 text-slate-600">
                 <a
                   href="#"
                   aria-label="Facebook"
-                  className="transition-colors hover:text-white"
+                  className="transition-colors hover:text-slate-900"
                 >
                   <FacebookIcon className="size-5" />
                 </a>
                 <a
                   href="#"
                   aria-label="Instagram"
-                  className="transition-colors hover:text-white"
+                  className="transition-colors hover:text-slate-900"
                 >
                   <InstagramIcon className="size-5" />
                 </a>
@@ -118,7 +118,7 @@ export function Footer() {
             </div>
           </div>
 
-          <div className="mt-12 border-t border-slate-800 pt-8 text-center text-sm text-slate-500">
+          <div className="mt-12 border-t border-slate-200 pt-8 text-center text-sm text-slate-500">
             © 2026 Bordi &amp; Sons Roofing. All rights reserved.
           </div>
         </FadeIn>
