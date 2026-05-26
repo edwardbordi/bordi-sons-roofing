@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { ChevronDown } from "lucide-react";
 import { CtaButton } from "@/components/ui/cta-button";
+import { site } from "@/config/site.config";
 
 export function Hero() {
   return (
@@ -38,7 +39,7 @@ export function Hero() {
         <div className="mb-6 flex flex-col items-start gap-4 sm:flex-row">
           <CtaButton
             variant="primary"
-            href="https://demo.sitescan.controlsuite.ai/"
+            href={site.estimateUrl}
             target="_blank"
             rel="noopener noreferrer"
           >

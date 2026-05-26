@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Loader2 } from "lucide-react";
+import { brand } from "@/config/brand.config";
 
 const FRAME_COUNT = 151;
 // Internal canvas resolution — matches the extracted source frames (1284x716).
@@ -365,7 +366,7 @@ export function ScrollAnimation() {
                       cx={label.dotX}
                       cy={label.dotY}
                       r={7}
-                      fill="#dc2626"
+                      fill={brand.colors.primary.DEFAULT}
                       stroke="#ffffff"
                       strokeWidth={0.75}
                     />
@@ -401,7 +402,7 @@ export function ScrollAnimation() {
                           fontFamily: "system-ui, -apple-system, sans-serif",
                         }}
                       >
-                        <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-red-600 text-[20px] font-bold text-white shadow-sm ring-2 ring-white/80">
+                        <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-primary-600 text-[20px] font-bold text-white shadow-sm ring-2 ring-white/80">
                           {label.step}
                         </span>
                         <span
@@ -493,7 +494,7 @@ export function ScrollAnimation() {
                           fontFamily: "system-ui, -apple-system, sans-serif",
                         }}
                       >
-                        <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-red-600 text-xs font-bold text-white">
+                        <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary-600 text-xs font-bold text-white">
                           {label.step}
                         </span>
                         <div className="min-w-0 flex-1">

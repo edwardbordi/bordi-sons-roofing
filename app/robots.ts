@@ -1,11 +1,10 @@
 import type { MetadataRoute } from "next";
-
-const SITE_URL = "https://www.bordiandsons.com";
+import { site } from "@/config/site.config";
 
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: { userAgent: "*", allow: "/" },
-    sitemap: `${SITE_URL}/sitemap.xml`,
-    host: SITE_URL,
+    sitemap: `${site.url}/sitemap.xml`,
+    host: site.url,
   };
 }

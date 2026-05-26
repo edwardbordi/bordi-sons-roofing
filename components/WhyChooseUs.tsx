@@ -48,7 +48,7 @@ export function WhyChooseUs() {
                 delay={i * 0.1}
                 className="flex flex-col items-center text-center"
               >
-                <Icon className="size-12 text-green-700" />
+                <Icon className="size-12 text-accent-700" />
                 <h3 className="mt-6 text-xl font-semibold text-slate-900">
                   {reason.title}
                 </h3>

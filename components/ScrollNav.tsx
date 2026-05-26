@@ -78,7 +78,7 @@ export default function ScrollNav() {
               className={
                 "rounded-full transition-all duration-300 " +
                 (isActive
-                  ? "h-8 w-[3px] bg-red-600"
+                  ? "h-8 w-[3px] bg-primary-600"
                   : "h-6 w-[2px] bg-slate-300 group-hover:bg-slate-500")
               }
             />

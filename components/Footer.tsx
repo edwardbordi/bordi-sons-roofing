@@ -1,6 +1,8 @@
 import type { SVGProps } from "react";
 import Image from "next/image";
 import { FadeIn } from "@/components/FadeIn";
+import { site } from "@/config/site.config";
+import { brand } from "@/config/brand.config";
 
 const serviceLinks = [
   "Roof Replacement",
@@ -33,9 +35,9 @@ export function Footer() {
     <footer id="footer" className="border-t border-slate-200 bg-stone-100">
       {/* Full-width horizontal Italian flag accent: green / white / red */}
       <div className="flex h-1 w-full" aria-hidden="true">
-        <div className="flex-1 bg-green-700" />
+        <div className="flex-1 bg-accent-700" />
         <div className="flex-1 bg-white" />
-        <div className="flex-1 bg-red-600" />
+        <div className="flex-1 bg-primary-600" />
       </div>
 
       <div className="px-4 py-16 sm:px-6 lg:px-8">
@@ -44,8 +46,8 @@ export function Footer() {
             {/* Brand */}
             <div>
               <Image
-                src="/images/bordi-logo.png"
-                alt="Bordi & Sons Roofing"
+                src={brand.logo.src}
+                alt={brand.logo.alt}
                 width={144}
                 height={144}
                 className="-mt-3 -ml-5 mb-4 h-36 w-auto"
@@ -87,21 +89,23 @@ export function Footer() {
               <ul className="mt-4 space-y-2 text-sm text-slate-700">
                 <li>
                   <a
-                    href="tel:+15555555555"
+                    href={site.phone.href}
                     className="transition-colors hover:text-slate-900"
                   >
-                    (555) 555-5555
+                    {site.phone.display}
                   </a>
                 </li>
                 <li>
                   <a
-                    href="mailto:hello@bordiandsons.com"
+                    href={`mailto:${site.email}`}
                     className="transition-colors hover:text-slate-900"
                   >
-                    hello@bordiandsons.com
+                    {site.email}
                   </a>
                 </li>
-                <li>Haddon Twp, NJ</li>
+                <li>
+                  {site.address.locality}, {site.address.region}
+                </li>
               </ul>
             </div>
 
@@ -112,14 +116,14 @@ export function Footer() {
               </h4>
               <div className="mt-4 flex gap-4 text-slate-600">
                 <a
-                  href="#"
+                  href={site.social.facebook}
                   aria-label="Facebook"
                   className="transition-colors hover:text-slate-900"
                 >
                   <FacebookIcon className="size-5" />
                 </a>
                 <a
-                  href="#"
+                  href={site.social.instagram}
                   aria-label="Instagram"
                   className="transition-colors hover:text-slate-900"
                 >
@@ -130,7 +134,7 @@ export function Footer() {
           </div>
 
           <div className="mt-12 border-t border-slate-200 pt-8 text-center text-sm text-slate-500">
-            © 2026 Bordi &amp; Sons Roofing. All rights reserved.
+            © 2026 {site.name}. All rights reserved.
           </div>
         </FadeIn>
       </div>
