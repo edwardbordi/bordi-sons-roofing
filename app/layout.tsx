@@ -57,8 +57,6 @@ export const metadata: Metadata = {
 };
 
 // LocalBusiness structured data, sourced from config.
-// NOTE: aggregateRating is placeholder/demo data — replace with verified
-// review data (or remove) before any production launch.
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "RoofingContractor",
@@ -84,11 +82,9 @@ const jsonLd = {
     opens: h.opens,
     closes: h.closes,
   })),
-  aggregateRating: {
-    "@type": "AggregateRating",
-    ratingValue: "5.0",
-    reviewCount: "8",
-  },
+  // TODO(reviews): add `aggregateRating` + `review` ONLY when real, verified
+  // review data exists. Fabricated ratings violate schema.org/Google policy and
+  // must never ship on a public domain.
 };
 
 export default function RootLayout({

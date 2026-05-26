@@ -32,14 +32,13 @@ export const brand = {
       DEFAULT: "#dc2626",
     },
     /**
-     * ACCENT — currently maps to the green used on trust icons / success states
-     * (Tailwind green-700, #15803d), preserved exactly. NOTE FOR OWNER: the
-     * brand's logo green is #1A7F45, which differs slightly. Decide whether to
-     * unify accent to #1A7F45 — left as-is for now to avoid any visual change.
+     * ACCENT — brand green. The logo is the source of truth (#1A7F45), so the
+     * trust icons / success states now use it (Owner decision). Drives
+     * text-accent-700 / bg-accent-700.
      */
     accent: {
-      700: "#15803d",
-      DEFAULT: "#15803d",
+      700: "#1A7F45",
+      DEFAULT: "#1A7F45",
     },
     /** Neutral ramp: Tailwind `slate` (the only neutral the template uses). */
     neutral: "slate",
