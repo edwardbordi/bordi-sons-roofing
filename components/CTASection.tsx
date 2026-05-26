@@ -3,7 +3,17 @@ import { CtaButton } from "@/components/ui/cta-button";
 import { FadeIn } from "@/components/FadeIn";
 import { site } from "@/config/site.config";
 
-export function CTASection() {
+export function CTASection({
+  heading,
+  subhead,
+  ctaLabel,
+  truckAlt,
+}: {
+  heading: string;
+  subhead: string;
+  ctaLabel: string;
+  truckAlt: string;
+}) {
   return (
     <section id="cta" className="bg-primary-600 px-4 py-24 sm:px-6 lg:px-8">
       <FadeIn className="mx-auto grid max-w-6xl grid-cols-1 items-center gap-10 md:grid-cols-2 md:gap-10">
@@ -12,7 +22,7 @@ export function CTASection() {
         <div className="flex justify-center">
           <Image
             src="/images/truck-t.png"
-            alt="Bordi & Sons Roofing service truck"
+            alt={truckAlt}
             width={3371}
             height={1663}
             className="h-auto w-full max-w-2xl drop-shadow-[0_0_32px_rgba(255,255,255,0.65)]"
@@ -22,13 +32,8 @@ export function CTASection() {
         {/* Text — right column on desktop, below the truck on mobile.
             Left-aligned within the column on desktop. */}
         <div className="flex flex-col items-center text-center md:items-start md:text-left">
-          <h2 className="text-4xl font-bold text-white md:text-5xl">
-            Ready When You Are.
-          </h2>
-          <p className="mt-4 text-lg text-primary-100">
-            Get an honest estimate in minutes, not days. No phone calls, no
-            pressure, no surprises.
-          </p>
+          <h2 className="text-4xl font-bold text-white md:text-5xl">{heading}</h2>
+          <p className="mt-4 text-lg text-primary-100">{subhead}</p>
           <CtaButton
             variant="primaryInverse"
             href={site.estimateUrl}
@@ -36,7 +41,7 @@ export function CTASection() {
             rel="noopener noreferrer"
             className="mt-8"
           >
-            Get an Instant Estimate
+            {ctaLabel}
           </CtaButton>
         </div>
       </FadeIn>

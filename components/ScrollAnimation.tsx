@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Loader2 } from "lucide-react";
 import { brand } from "@/config/brand.config";
+import type { RoofLabel } from "@/content/home";
 
 const FRAME_COUNT = 151;
 // Internal canvas resolution — matches the extracted source frames (1284x716).
@@ -42,69 +43,19 @@ const framePath = (frame: number) =>
 const clamp = (value: number, min: number, max: number) =>
   Math.min(Math.max(value, min), max);
 
-type LabelConfig = {
-  name: string;
-  description: string;
-  step: number; // installation sequence (a roof is built deck-up)
-  dotX: number; // target position (where the component sits)
-  dotY: number;
-  textX: number; // text position (offset to the side)
-  textY: number;
-  lineEndX: number; // where the connector line ends, near the text
-  side: "left" | "right";
-  threshold: number; // scroll progress at which the label fades in
-};
+// Label coordinates + intro copy now live in content/home.ts (RoofLabel).
 
-// Coordinates in SVG units (viewBox 0 0 1284 716). dotY values tuned so each
-// dot lands on its floating layer in frame_0151.jpg (the spec's first-pass
-// y=150..360 sat ~80-150px too low, on the tan deck/facade — see commit msg).
-// textY mirrors dotY so each connector line is horizontal.
-const labels: LabelConfig[] = [
-  {
-    name: "RIDGE CAP SHINGLES",
-    description:
-      "Seals the ridge — the most vulnerable point on any roof. Built to withstand wind and weather.",
-    step: 6,
-    dotX: 680, dotY: 70, textX: 1080, textY: 70, lineEndX: 1070, side: "right", threshold: 0.69,
-  },
-  {
-    name: "RIDGE VENT",
-    description:
-      "Continuous attic ventilation regulates temperature and moisture, releasing trapped heat. Extends roof life by years.",
-    step: 5,
-    dotX: 490, dotY: 70, textX: 210, textY: 58, lineEndX: 220, side: "left", threshold: 0.56,
-  },
-  {
-    name: "ARCHITECTURAL SHINGLES",
-    description:
-      "Beautiful dimensional shingles — the striking, visible heart of your roofing system. Available in dozens of colors to match any taste or home, and built for decades of dependable protection.",
-    step: 4,
-    dotX: 720, dotY: 137, textX: 1080, textY: 187, lineEndX: 1070, side: "right", threshold: 0.43,
-  },
-  {
-    name: "STARTER STRIP SHINGLES",
-    description:
-      "Premium pre-cut strips create the first sealed row at the eaves. Locks every shingle above firmly in place, preventing blow-offs.",
-    step: 3,
-    dotX: 620, dotY: 210, textX: 210, textY: 322, lineEndX: 220, side: "left", threshold: 0.30,
-  },
-  {
-    name: "LEAK BARRIER",
-    description:
-      "Self-adhering rubberized membrane along vulnerable eaves and valleys. Stops ice dams and wind-driven rain dead in their tracks.",
-    step: 2,
-    dotX: 720, dotY: 235, textX: 1080, textY: 335, lineEndX: 1070, side: "right", threshold: 0.17,
-  },
-  {
-    name: "ROOF DECK PROTECTION",
-    description:
-      "Synthetic underlayment is your roof's foundation. Protects your home from water and weather before shingles are even installed.",
-    step: 1,
-    dotX: 430, dotY: 140, textX: 210, textY: 190, lineEndX: 220, side: "left", threshold: 0.04,
-  },
-];
-
-export function ScrollAnimation() {
+export function ScrollAnimation({
+  eyebrow,
+  heading,
+  subhead,
+  labels,
+}: {
+  eyebrow: string;
+  heading: string;
+  subhead: string;
+  labels: RoofLabel[];
+}) {
   const sectionRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   // Decoded frames live in a ref so updating them never triggers a re-render.
@@ -284,7 +235,7 @@ export function ScrollAnimation() {
         rafRef.current = null;
       }
     };
-  }, [loaded]);
+  }, [loaded, labels]);
 
   return (
     <section id="process" className="bg-white">
@@ -297,16 +248,12 @@ export function ScrollAnimation() {
         {/* Static intro — scrolls in and out with the section naturally */}
         <div className="mx-auto max-w-2xl text-center">
           <span className="inline-flex items-center rounded-full bg-white/60 px-3.5 py-1.5 text-xs font-semibold tracking-widest text-slate-600 ring-1 ring-inset ring-slate-900/10 backdrop-blur-md">
-            HOW WE BUILD A ROOF
+            {eyebrow}
           </span>
           <h2 className="mt-5 mb-3 text-3xl font-bold text-slate-900 md:text-5xl">
-            Six layers. Zero shortcuts.
+            {heading}
           </h2>
-          <p className="mb-12 text-base text-slate-600">
-            Every Bordi roof includes the complete GAF system — installed
-            exactly as the manufacturer specifies. No corner-cutting, no
-            surprises.
-          </p>
+          <p className="mb-12 text-base text-slate-600">{subhead}</p>
         </div>
 
         <div className="relative w-full max-w-5xl">

@@ -6,6 +6,7 @@ import { Heart } from "lucide-react";
 import { CtaButton } from "@/components/ui/cta-button";
 import { brand } from "@/config/brand.config";
 import { site } from "@/config/site.config";
+import type { ShingleColor } from "@/content/home";
 
 // Favorites persist here as a JSON array of color names.
 const FAVORITES_KEY = "bordi-favorite-colors";
@@ -13,33 +14,19 @@ const FAVORITES_KEY = "bordi-favorite-colors";
 const titleCase = (s: string) =>
   s.toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase());
 
-// 18 GAF Timberline HDZ colors, in grid order. `name` (uppercase) is the
-// favorite identifier (kept identical to the previous version so existing
-// saved favorites still match); `file` is the basename in /images/.
-type ShingleColor = { name: string; file: string };
+// The GAF color catalog + section copy now live in content/home.ts.
 
-const COLORS: ShingleColor[] = [
-  { name: "OYSTER GRAY", file: "01-oyster-gray" },
-  { name: "PEWTER GRAY", file: "02-pewter-gray" },
-  { name: "FOX HOLLOW GRAY", file: "03-fox-hollow-gray" },
-  { name: "SLATE", file: "04-slate" },
-  { name: "WILLIAMSBURG SLATE", file: "05-williamsburg-slate" },
-  { name: "BISCAYNE BLUE", file: "06-biscayne-blue" },
-  { name: "WEATHERED WOOD", file: "07-weathered-wood" },
-  { name: "CLIFFSIDE", file: "08-cliffside" },
-  { name: "MIDNIGHT MESA", file: "09-midnight-mesa" },
-  { name: "CHARCOAL", file: "10-charcoal" },
-  { name: "HUNTER GREEN", file: "11-hunter-green" },
-  { name: "PATRIOT RED", file: "12-patriot-red" },
-  { name: "SIERRA SAND", file: "13-sierra-sand" },
-  { name: "BARKWOOD", file: "14-barkwood" },
-  { name: "SHAKEWOOD", file: "15-shakewood" },
-  { name: "HICKORY", file: "16-hickory" },
-  { name: "MISSION BROWN", file: "17-mission-brown" },
-  { name: "CHESTNUT VALLEY", file: "18-chestnut-valley" },
-];
-
-export function ShingleColorGrid() {
+export function ShingleColorGrid({
+  eyebrow,
+  heading,
+  subhead,
+  colors,
+}: {
+  eyebrow: string;
+  heading: string;
+  subhead: string;
+  colors: ShingleColor[];
+}) {
   const [favorites, setFavorites] = useState<Set<string>>(new Set());
   const [hydrated, setHydrated] = useState(false);
 
@@ -96,16 +83,12 @@ export function ShingleColorGrid() {
         {/* Heading */}
         <div className="max-w-2xl text-center">
           <span className="inline-flex items-center rounded-full bg-white/60 px-3.5 py-1.5 text-xs font-semibold tracking-widest text-slate-600 ring-1 ring-inset ring-slate-900/10 backdrop-blur-md">
-            THE BORDI SYSTEM
+            {eyebrow}
           </span>
           <h2 className="mt-5 mb-3 text-3xl font-bold text-slate-900 md:text-5xl">
-            18 Authentic Colors. One Standard of Quality.
+            {heading}
           </h2>
-          <p className="text-base text-slate-600">
-            Every GAF Timberline HDZ shingle is engineered to the same
-            lifetime-rated specification. The only thing that changes is the
-            character of your home.
-          </p>
+          <p className="text-base text-slate-600">{subhead}</p>
         </div>
 
         {/* Favorites counter — reserves its line so saving the first color
@@ -127,7 +110,7 @@ export function ShingleColorGrid() {
 
         {/* The grid: 3×6 on mobile, 6×3 on desktop. Each cell is a button. */}
         <div className="mt-6 grid w-full grid-cols-3 gap-3 md:grid-cols-6">
-          {COLORS.map((color, i) => {
+          {colors.map((color, i) => {
             const fav = favorites.has(color.name);
             return (
               <button
