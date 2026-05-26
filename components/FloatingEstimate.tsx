@@ -19,6 +19,8 @@ export function FloatingEstimate() {
     // Show once the hero is fully scrolled out of view.
     const hero = document.getElementById("hero");
     if (!hero) {
+      // No hero on this page → show immediately. One-time mount fallback.
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setPastHero(true);
       return;
     }
