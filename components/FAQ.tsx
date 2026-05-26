@@ -1,5 +1,7 @@
 import { ChevronDown } from "lucide-react";
 import { FadeIn } from "@/components/FadeIn";
+import { JsonLd } from "@/components/JsonLd";
+import { faqPageLd } from "@/lib/seo";
 import type { QA } from "@/content/home";
 
 export function FAQ({
@@ -13,23 +15,9 @@ export function FAQ({
   subhead: string;
   items: QA[];
 }) {
-  // FAQPage structured data, generated from the same items.
-  const faqJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: items.map((f) => ({
-      "@type": "Question",
-      name: f.q,
-      acceptedAnswer: { "@type": "Answer", text: f.a },
-    })),
-  };
-
   return (
     <section id="faq" className="bg-white px-4 py-24 sm:px-6 lg:px-8">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
-      />
+      <JsonLd data={faqPageLd(items)} />
 
       <div className="mx-auto max-w-3xl">
         <FadeIn className="text-center">
