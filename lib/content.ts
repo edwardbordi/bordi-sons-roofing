@@ -108,6 +108,19 @@ export function getAllEntries(
     .sort((a, b) => b.frontmatter.date.localeCompare(a.frontmatter.date));
 }
 
+export const POSTS_PER_PAGE = 9;
+
+/** Total number of listing pages for a count of posts (min 1). */
+export function pageCount(total: number): number {
+  return Math.max(1, Math.ceil(total / POSTS_PER_PAGE));
+}
+
+/** Slice the entries for a 1-based listing page. */
+export function pageSlice<T>(items: T[], page: number): T[] {
+  const start = (page - 1) * POSTS_PER_PAGE;
+  return items.slice(start, start + POSTS_PER_PAGE);
+}
+
 /** Load + validate an author record. */
 export function getAuthor(id: string): Author | null {
   const file = path.join(CONTENT_DIR, "authors", `${id}.json`);
