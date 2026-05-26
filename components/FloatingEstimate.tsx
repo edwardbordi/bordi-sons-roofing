@@ -3,8 +3,7 @@
 import { useEffect, useState } from "react";
 import { Zap } from "lucide-react";
 import { CtaButton } from "@/components/ui/cta-button";
-
-const ESTIMATE_URL = "https://demo.sitescan.controlsuite.ai/";
+import { site } from "@/config/site.config";
 
 /**
  * Persistent "Instant Estimate" control. Stays clear of the top navbar and the
@@ -45,7 +44,7 @@ export function FloatingEstimate() {
       >
         <CtaButton
           variant="primary"
-          href={ESTIMATE_URL}
+          href={site.estimateUrl}
           target="_blank"
           rel="noopener noreferrer"
           className="shadow-lg hover:shadow-xl"
@@ -66,7 +65,7 @@ export function FloatingEstimate() {
       >
         <CtaButton
           variant="primary"
-          href={ESTIMATE_URL}
+          href={site.estimateUrl}
           target="_blank"
           rel="noopener noreferrer"
           className="w-full"

@@ -1,106 +1,90 @@
 import type { Metadata } from "next";
 import { Geist } from "next/font/google";
 import "./globals.css";
+import { site } from "@/config/site.config";
+import { brand } from "@/config/brand.config";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
 });
 
-// Canonical production origin. Update if the live domain differs.
-const SITE_URL = "https://www.bordiandsons.com";
+// All business facts come from config/site.config.ts (single source of truth).
+// NOTE: H4 will extract metadata + JSON-LD into lib/seo.ts and make them
+// locale-aware; for now they're sourced from config inline.
+
+const TITLE = `${site.name} — GAF Master Elite Roofers in ${site.address.locality}, ${site.address.region}`;
 
 const ogImage = {
   url: "/images/hero-scene.jpg",
   width: 2400,
   height: 1340,
-  alt: "Bordi & Sons Roofing — a finished home with a new GAF roof",
+  alt: `${site.name} — a finished home with a new GAF roof`,
 };
 
-const DESCRIPTION =
-  "Family-owned, GAF Master Elite roofing in Haddon Township, NJ. Roof replacement, repair, and gutters — honest pricing, premium materials, and a lifetime material warranty. Get a free, no-pressure estimate.";
-
 export const metadata: Metadata = {
-  metadataBase: new URL(SITE_URL),
-  title: {
-    default: "Bordi & Sons Roofing | GAF-Certified Roofers in Haddon Twp, NJ",
-    template: "%s | Bordi & Sons Roofing",
-  },
-  description: DESCRIPTION,
-  applicationName: "Bordi & Sons Roofing",
+  metadataBase: new URL(site.url),
+  title: { default: TITLE, template: `%s | ${site.name}` },
+  description: site.description,
+  applicationName: site.name,
   alternates: { canonical: "/" },
   keywords: [
     "roofing",
     "roof replacement",
     "roof repair",
-    "GAF Master Elite",
+    ...site.certifications,
     "gutters",
-    "Haddon Township NJ",
+    `${site.address.locality} ${site.address.region}`,
     "New Jersey roofer",
     "storm damage repair",
   ],
   robots: { index: true, follow: true },
   openGraph: {
-    title: "Bordi & Sons Roofing | GAF-Certified Roofers in Haddon Twp, NJ",
-    description: DESCRIPTION,
-    url: SITE_URL,
-    siteName: "Bordi & Sons Roofing",
-    locale: "en_US",
+    title: TITLE,
+    description: site.description,
+    url: site.url,
+    siteName: site.name,
+    locale: site.i18n.bcp47[site.i18n.defaultLocale].replace("-", "_"),
     type: "website",
     images: [ogImage],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Bordi & Sons Roofing | GAF-Certified Roofers in Haddon Twp, NJ",
-    description: DESCRIPTION,
+    title: TITLE,
+    description: site.description,
     images: [ogImage],
   },
 };
 
-// LocalBusiness structured data for local SEO / rich results.
-// NOTE: phone, address, and ratings are placeholders on this demo — replace
-// with the real NAP + verified review data before going live.
+// LocalBusiness structured data, sourced from config.
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "RoofingContractor",
-  "@id": `${SITE_URL}/#business`,
-  name: "Bordi & Sons Roofing",
-  url: SITE_URL,
-  image: `${SITE_URL}/images/hero-scene.jpg`,
-  logo: `${SITE_URL}/images/bordi-logo.png`,
-  telephone: "+1-555-555-5555",
-  email: "hello@bordiandsons.com",
+  "@id": `${site.url}/#business`,
+  name: site.name,
+  url: site.url,
+  image: `${site.url}/images/hero-scene.jpg`,
+  logo: `${site.url}${brand.logo.src}`,
+  telephone: site.phone.display,
+  email: site.email,
   priceRange: "$$",
-  description: DESCRIPTION,
+  description: site.description,
   address: {
     "@type": "PostalAddress",
-    addressLocality: "Haddon Township",
-    addressRegion: "NJ",
-    addressCountry: "US",
+    addressLocality: site.address.locality,
+    addressRegion: site.address.region,
+    addressCountry: site.address.country,
   },
-  areaServed: [
-    "Haddon Township",
-    "Cherry Hill",
-    "Collingswood",
-    "Voorhees",
-    "Moorestown",
-    "Marlton",
-    "Haddonfield",
-    "Audubon",
-  ].map((name) => ({ "@type": "City", name })),
-  openingHoursSpecification: [
-    {
-      "@type": "OpeningHoursSpecification",
-      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-      opens: "08:00",
-      closes: "17:00",
-    },
-  ],
-  aggregateRating: {
-    "@type": "AggregateRating",
-    ratingValue: "5.0",
-    reviewCount: "8",
-  },
+  areaServed: site.areaServed.map((name) => ({ "@type": "City", name })),
+  openingHoursSpecification: site.hours.map((h) => ({
+    "@type": "OpeningHoursSpecification",
+    dayOfWeek: h.days,
+    opens: h.opens,
+    closes: h.closes,
+  })),
+  // TODO(reviews): add `aggregateRating` + `review` ONLY when real, verified
+  // review data exists. Fabricated ratings violate schema.org/Google policy and
+  // must never ship on a public domain.
 };
 
 export default function RootLayout({
@@ -110,7 +94,7 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="en"
+      lang={site.i18n.bcp47[site.i18n.defaultLocale]}
       className={`${geistSans.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">

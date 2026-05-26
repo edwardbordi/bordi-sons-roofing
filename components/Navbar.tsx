@@ -6,6 +6,8 @@ import Link from "next/link";
 import { ChevronDown, Home, Droplets, Wrench } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { CtaButton } from "@/components/ui/cta-button";
+import { site } from "@/config/site.config";
+import { brand } from "@/config/brand.config";
 
 // Simple anchor links (Services is a mega menu, handled separately below).
 const navLinks = [
@@ -91,13 +93,13 @@ export function Navbar() {
           }`}
         >
           <Image
-            src="/images/bordi-logo.png"
-            alt="Bordi & Sons Roofing"
-            width={104}
-            height={104}
+            src={brand.logo.src}
+            alt={brand.logo.alt}
+            width={brand.logo.width}
+            height={brand.logo.height}
             loading="eager"
             className="-ml-2 translate-y-2"
-            style={{ width: 104, height: 104, maxWidth: "none" }}
+            style={{ width: brand.logo.width, height: brand.logo.height, maxWidth: "none" }}
           />
         </Link>
 
@@ -154,7 +156,7 @@ export function Navbar() {
                   return (
                     <div key={col.title}>
                       <div className="mb-3 flex items-center gap-2 border-b border-slate-100 pb-2">
-                        <Icon className="size-5 text-red-600" aria-hidden="true" />
+                        <Icon className="size-5 text-primary-600" aria-hidden="true" />
                         <h3 className="text-sm font-semibold tracking-wide text-slate-900 uppercase">
                           {col.title}
                         </h3>
@@ -165,7 +167,7 @@ export function Navbar() {
                             <a
                               href={item.href}
                               onClick={() => setServicesOpen(false)}
-                              className="block rounded-md px-2 py-1.5 text-sm text-slate-600 transition-colors hover:bg-stone-50 hover:text-red-600"
+                              className="block rounded-md px-2 py-1.5 text-sm text-slate-600 transition-colors hover:bg-stone-50 hover:text-primary-600"
                             >
                               {item.label}
                             </a>
@@ -199,10 +201,10 @@ export function Navbar() {
         >
           <CtaButton
             variant="primary"
-            href="tel:+15555555555"
+            href={site.phone.href}
             tabIndex={scrolled ? -1 : undefined}
           >
-            Call (555) 555-5555
+            Call {site.phone.display}
           </CtaButton>
         </div>
       </div>

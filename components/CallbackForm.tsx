@@ -7,10 +7,10 @@ import { FadeIn } from "@/components/FadeIn";
 // Matches the canonical primary CTA (see ui/cta-button.tsx) but as a real
 // <button> for form submission.
 const SUBMIT_BTN =
-  "inline-flex w-full items-center justify-center gap-2 rounded-md bg-red-600 px-6 py-3 text-base font-semibold text-white shadow-sm transition-all duration-200 ease-out hover:-translate-y-px hover:bg-red-700 hover:shadow-md active:translate-y-0 active:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-400 focus-visible:ring-offset-2 sm:w-auto";
+  "inline-flex w-full items-center justify-center gap-2 rounded-md bg-primary-600 px-6 py-3 text-base font-semibold text-white shadow-sm transition-all duration-200 ease-out hover:-translate-y-px hover:bg-primary-700 hover:shadow-md active:translate-y-0 active:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-400 focus-visible:ring-offset-2 sm:w-auto";
 
 const FIELD =
-  "w-full rounded-md border border-slate-300 bg-white px-3.5 py-2.5 text-slate-900 shadow-sm transition-colors placeholder:text-slate-400 focus:border-red-500 focus:outline-none focus:ring-2 focus:ring-red-200";
+  "w-full rounded-md border border-slate-300 bg-white px-3.5 py-2.5 text-slate-900 shadow-sm transition-colors placeholder:text-slate-400 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-200";
 const FIELD_LABEL = "mb-1.5 block text-sm font-medium text-slate-700";
 
 export function CallbackForm() {
@@ -67,7 +67,7 @@ export function CallbackForm() {
         <FadeIn delay={0.1}>
           {submitted ? (
             <div className="rounded-2xl border border-slate-200 bg-white p-8 text-center shadow-sm">
-              <CheckCircle2 className="mx-auto size-12 text-green-700" />
+              <CheckCircle2 className="mx-auto size-12 text-accent-700" />
               <h3 className="mt-4 text-2xl font-bold text-slate-900">
                 Thanks — we&apos;ll be in touch.
               </h3>
@@ -174,7 +174,7 @@ export function CallbackForm() {
                   type="checkbox"
                   name="smsConsent"
                   required
-                  className="mt-0.5 size-4 shrink-0 rounded border-slate-300 text-red-600 focus:ring-2 focus:ring-red-300"
+                  className="mt-0.5 size-4 shrink-0 rounded border-slate-300 text-primary-600 focus:ring-2 focus:ring-primary-300"
                 />
                 <span className="text-xs leading-relaxed text-slate-500">
                   By checking this box, I agree to receive SMS text messages and

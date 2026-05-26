@@ -1,11 +1,10 @@
 import type { MetadataRoute } from "next";
-
-const SITE_URL = "https://www.bordiandsons.com";
+import { site } from "@/config/site.config";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
-      url: SITE_URL,
+      url: site.url,
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 1,

@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { Heart } from "lucide-react";
 import { CtaButton } from "@/components/ui/cta-button";
+import { brand } from "@/config/brand.config";
+import { site } from "@/config/site.config";
 
 // Favorites persist here as a JSON array of color names.
 const FAVORITES_KEY = "bordi-favorite-colors";
@@ -115,7 +117,7 @@ export function ShingleColorGrid() {
               <button
                 type="button"
                 onClick={clearFavorites}
-                className="ml-2 text-red-600 hover:underline"
+                className="ml-2 text-primary-600 hover:underline"
               >
                 Clear
               </button>
@@ -134,7 +136,7 @@ export function ShingleColorGrid() {
                 aria-label={`Save ${titleCase(color.name)} as a favorite color`}
                 aria-pressed={fav}
                 onClick={() => toggleFavorite(color.name)}
-                className="group cursor-pointer rounded-md transition-transform duration-200 hover:scale-[1.02] focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2 focus-visible:outline-none"
+                className="group cursor-pointer rounded-md transition-transform duration-200 hover:scale-[1.02] focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:outline-none"
               >
                 <div className="relative aspect-square w-full overflow-hidden rounded-md ring-1 ring-black/5">
                   <Image
@@ -156,7 +158,7 @@ export function ShingleColorGrid() {
                         ? "shingleHeartFav 200ms ease-out"
                         : undefined,
                     }}
-                    fill={fav ? "#dc2626" : "none"}
+                    fill={fav ? brand.colors.primary.DEFAULT : "none"}
                     stroke="#ffffff"
                     strokeWidth={fav ? 1.5 : 2}
                   />
@@ -174,7 +176,7 @@ export function ShingleColorGrid() {
           <div className="mt-10 px-4 text-center">
             <CtaButton
               variant="primary"
-              href="https://demo.sitescan.controlsuite.ai/"
+              href={site.estimateUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="max-w-full whitespace-normal text-center"
