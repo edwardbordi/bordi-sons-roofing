@@ -12,6 +12,10 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // The WP plugin products are separate projects (own tooling + bundled/
+    // minified output) — the site's lint shouldn't cover them.
+    "roof-widget-plugin/**",
+    "bordi-widgets-core-plugin/**",
   ]),
 ]);
 

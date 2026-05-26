@@ -1,0 +1,66 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  verify:
+    name: Typecheck · Lint · Build · Drift
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Typecheck
+        run: npm run typecheck
+      - name: Lint
+        run: npm run lint
+      - name: Build
+        run: npm run build
+      - name: Drift detection
+        id: drift
+        run: node scripts/drift-check.mjs | tee drift.txt
+      - name: Comment drift report on PR
+        if: always() && github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const out = fs.existsSync('drift.txt') ? fs.readFileSync('drift.txt', 'utf8') : 'No drift output.';
+            const body = ['### 🧭 Drift report', '```', out.slice(0, 60000), '```'].join('\n');
+            const { data: comments } = await github.rest.issues.listComments({
+              ...context.repo, issue_number: context.issue.number,
+            });
+            const prev = comments.find((c) => c.body.startsWith('### 🧭 Drift report'));
+            if (prev) {
+              await github.rest.issues.updateComment({ ...context.repo, comment_id: prev.id, body });
+            } else {
+              await github.rest.issues.createComment({ ...context.repo, issue_number: context.issue.number, body });
+            }
+
+  lighthouse:
+    name: Lighthouse budgets (informational)
+    runs-on: ubuntu-latest
+    # Informational until tuned; promote to a required check via branch
+    # protection once scores are stable. See SECURITY.md / DEPLOYMENT.md.
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - name: Lighthouse CI
+        run: npx --yes @lhci/cli@0.14.x autorun || true

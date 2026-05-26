@@ -133,6 +133,8 @@ export function ScrollAnimation() {
     const section = sectionRef.current;
     if (!section) return;
     if (typeof IntersectionObserver === "undefined") {
+      // No IO support → load frames immediately. One-time mount fallback.
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setShouldLoad(true);
       return;
     }
@@ -459,7 +461,7 @@ export function ScrollAnimation() {
                     strokeWidth={1}
                     strokeDasharray="3 3"
                   />
-                  <circle cx={label.dotX} cy={label.dotY} r={4} fill="#DC2626" />
+                  <circle cx={label.dotX} cy={label.dotY} r={4} fill={brand.colors.primary.DEFAULT} />
                 </g>
 
                 {/* Text (title + description) — fades in at this label's threshold. */}
