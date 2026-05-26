@@ -36,7 +36,7 @@ const MOBILE_RIGHT_LINE_END = 1045;
 const DESKTOP_BUBBLE_WIDTH = 300;
 
 const framePath = (frame: number) =>
-  `/frames/frame_${String(frame).padStart(4, "0")}.jpg`;
+  `/frames/frame_${String(frame).padStart(4, "0")}.webp`;
 
 const clamp = (value: number, min: number, max: number) =>
   Math.min(Math.max(value, min), max);
@@ -122,9 +122,36 @@ export function ScrollAnimation() {
 
   const [loaded, setLoaded] = useState(false);
   const [loadedCount, setLoadedCount] = useState(0);
+  // Frames are heavy (~150 images). Hold off fetching them until the section
+  // is approaching the viewport so they don't compete with the hero LCP.
+  const [shouldLoad, setShouldLoad] = useState(false);
 
-  // Preload + decode every frame in parallel on mount.
+  // Trigger the preload once the section nears the viewport (or immediately if
+  // IntersectionObserver isn't available).
   useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+    if (typeof IntersectionObserver === "undefined") {
+      setShouldLoad(true);
+      return;
+    }
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) {
+          setShouldLoad(true);
+          io.disconnect();
+        }
+      },
+      // Start fetching ~600px before the section scrolls into view.
+      { rootMargin: "0px 0px 600px 0px" }
+    );
+    io.observe(section);
+    return () => io.disconnect();
+  }, []);
+
+  // Preload + decode every frame in parallel, once gated in by shouldLoad.
+  useEffect(() => {
+    if (!shouldLoad) return;
     let cancelled = false;
     const images: HTMLImageElement[] = new Array(FRAME_COUNT);
 
@@ -158,7 +185,7 @@ export function ScrollAnimation() {
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [shouldLoad]);
 
   // Once frames are ready, wire scroll → requestAnimationFrame → draw.
   useEffect(() => {
@@ -266,10 +293,10 @@ export function ScrollAnimation() {
         <div className="sticky top-0 flex h-screen flex-col items-center justify-center px-4">
         {/* Static intro — scrolls in and out with the section naturally */}
         <div className="mx-auto max-w-2xl text-center">
-          <p className="mb-4 text-xs font-semibold tracking-widest text-red-600">
+          <span className="inline-flex items-center rounded-full bg-white/60 px-3.5 py-1.5 text-xs font-semibold tracking-widest text-slate-600 ring-1 ring-inset ring-slate-900/10 backdrop-blur-md">
             HOW WE BUILD A ROOF
-          </p>
-          <h2 className="mb-3 text-3xl font-bold text-slate-900 md:text-5xl">
+          </span>
+          <h2 className="mt-5 mb-3 text-3xl font-bold text-slate-900 md:text-5xl">
             Six layers. Zero shortcuts.
           </h2>
           <p className="mb-12 text-base text-slate-600">

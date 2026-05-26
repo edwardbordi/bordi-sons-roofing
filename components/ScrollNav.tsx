@@ -9,6 +9,7 @@ type Section = {
 
 const sections: Section[] = [
   { id: "hero", label: "Home" },
+  { id: "testimonials", label: "Reviews" },
   { id: "process", label: "Process" },
   { id: "features", label: "Anatomy" },
   { id: "colors", label: "Colors" },

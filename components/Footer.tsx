@@ -5,6 +5,7 @@ import { FadeIn } from "@/components/FadeIn";
 const serviceLinks = [
   "Roof Replacement",
   "Roof Repair",
+  "Gutters",
   "Inspections",
   "Storm Damage",
 ];

@@ -21,7 +21,7 @@ export function Hero() {
       >
         {/* Trust-signal kicker */}
         <div className="mb-4">
-          <span className="text-xs font-semibold tracking-widest text-slate-600">
+          <span className="inline-flex items-center rounded-full bg-white/60 px-3.5 py-1.5 text-xs font-semibold tracking-widest text-slate-600 ring-1 ring-inset ring-slate-900/10 backdrop-blur-md">
             FAMILY-OWNED ROOFING · NEW JERSEY
           </span>
         </div>
@@ -82,7 +82,7 @@ export function Hero() {
         className="absolute inset-0 z-10 hidden md:block"
         style={{
           background:
-            "linear-gradient(to right, rgba(255,255,255,0.92) 0%, rgba(255,255,255,0.72) 30%, rgba(255,255,255,0) 56%), linear-gradient(to bottom, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0) 42%)",
+            "linear-gradient(to right, rgba(255,255,255,0.99) 0%, rgba(255,255,255,0.95) 18%, rgba(255,255,255,0.6) 34%, rgba(255,255,255,0) 52%), linear-gradient(to bottom, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0) 42%)",
         }}
       />
 

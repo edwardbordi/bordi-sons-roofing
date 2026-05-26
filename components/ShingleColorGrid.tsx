@@ -93,10 +93,10 @@ export function ShingleColorGrid() {
       <div className="mx-auto flex w-full max-w-[920px] flex-col items-center">
         {/* Heading */}
         <div className="max-w-2xl text-center">
-          <p className="mb-4 text-xs font-semibold tracking-widest text-red-600">
+          <span className="inline-flex items-center rounded-full bg-white/60 px-3.5 py-1.5 text-xs font-semibold tracking-widest text-slate-600 ring-1 ring-inset ring-slate-900/10 backdrop-blur-md">
             THE BORDI SYSTEM
-          </p>
-          <h2 className="mb-3 text-3xl font-bold text-slate-900 md:text-5xl">
+          </span>
+          <h2 className="mt-5 mb-3 text-3xl font-bold text-slate-900 md:text-5xl">
             18 Authentic Colors. One Standard of Quality.
           </h2>
           <p className="text-base text-slate-600">
