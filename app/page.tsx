@@ -7,8 +7,10 @@ import { ShingleColorGrid } from "@/components/ShingleColorGrid";
 import { Features } from "@/components/Features";
 import { WhyChooseUs } from "@/components/WhyChooseUs";
 import { CTASection } from "@/components/CTASection";
+import { FAQ } from "@/components/FAQ";
 import { CallbackForm } from "@/components/CallbackForm";
 import { Footer } from "@/components/Footer";
+import { FloatingEstimate } from "@/components/FloatingEstimate";
 
 export default function Home() {
   return (
@@ -23,9 +25,11 @@ export default function Home() {
         <ShingleColorGrid />
         <WhyChooseUs />
         <CTASection />
+        <FAQ />
         <CallbackForm />
       </main>
       <Footer />
+      <FloatingEstimate />
     </div>
   );
 }

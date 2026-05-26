@@ -80,7 +80,7 @@ export function Navbar() {
     : "text-slate-900 hover:text-slate-600";
 
   return (
-    <header className="fixed top-0 z-50 w-full bg-transparent">
+    <header className="fixed top-2 z-50 w-full bg-transparent">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <Link
           href="/"
@@ -93,11 +93,11 @@ export function Navbar() {
           <Image
             src="/images/bordi-logo.png"
             alt="Bordi & Sons Roofing"
-            width={88}
-            height={88}
+            width={104}
+            height={104}
             loading="eager"
             className="-ml-2 translate-y-2"
-            style={{ width: 88, height: 88, maxWidth: "none" }}
+            style={{ width: 104, height: 104, maxWidth: "none" }}
           />
         </Link>
 
