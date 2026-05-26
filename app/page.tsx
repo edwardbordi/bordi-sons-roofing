@@ -19,13 +19,13 @@ export default function Home() {
       <Navbar />
       <ScrollNav />
       <main>
-        <Hero />
+        <Hero {...homeContent.hero} />
         <Testimonials {...homeContent.testimonials} />
-        <ScrollAnimation />
+        <ScrollAnimation {...homeContent.roofAnimation} />
         <Features {...homeContent.features} />
-        <ShingleColorGrid />
+        <ShingleColorGrid {...homeContent.shingles} />
         <WhyChooseUs {...homeContent.whyChooseUs} />
-        <CTASection />
+        <CTASection {...homeContent.cta} />
         <FAQ {...homeContent.faq} />
         <CallbackForm />
       </main>

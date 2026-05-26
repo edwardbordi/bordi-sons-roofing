@@ -1,12 +1,29 @@
 "use client";
 
+import { Fragment } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { ChevronDown } from "lucide-react";
 import { CtaButton } from "@/components/ui/cta-button";
 import { site } from "@/config/site.config";
 
-export function Hero() {
+export function Hero({
+  kicker,
+  headline,
+  subhead,
+  imageAlt,
+  primaryCtaLabel,
+  secondaryCta,
+  trust,
+}: {
+  kicker: string;
+  headline: string;
+  subhead: string;
+  imageAlt: string;
+  primaryCtaLabel: string;
+  secondaryCta: { label: string; href: string };
+  trust: readonly string[];
+}) {
   return (
     <section
       id="hero"
@@ -23,17 +40,15 @@ export function Hero() {
         {/* Trust-signal kicker */}
         <div className="mb-4">
           <span className="inline-flex items-center rounded-full bg-white/60 px-3.5 py-1.5 text-xs font-semibold tracking-widest text-slate-600 ring-1 ring-inset ring-slate-900/10 backdrop-blur-md">
-            FAMILY-OWNED ROOFING · NEW JERSEY
+            {kicker}
           </span>
         </div>
 
         <h1 className="mb-4 text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl lg:text-6xl">
-          Roofing you don&apos;t have to worry about.
+          {headline}
         </h1>
         <p className="mb-8 max-w-xl text-lg text-slate-700 sm:text-xl">
-          Honest pricing. Premium materials. A Bordi on every job, because our
-          name is on the line. No high-pressure sales. No surprises after the
-          contract is signed.
+          {subhead}
         </p>
 
         <div className="mb-6 flex flex-col items-start gap-4 sm:flex-row">
@@ -43,20 +58,21 @@ export function Hero() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            Get an Instant Estimate
+            {primaryCtaLabel}
           </CtaButton>
-          <CtaButton variant="secondary" href="#process">
-            Watch How It&apos;s Built
+          <CtaButton variant="secondary" href={secondaryCta.href}>
+            {secondaryCta.label}
           </CtaButton>
         </div>
 
         {/* Trust indicators */}
         <div className="flex items-center gap-3 text-sm text-slate-600">
-          <span>Instant Estimate</span>
-          <span aria-hidden="true">•</span>
-          <span>Honest Pricing</span>
-          <span aria-hidden="true">•</span>
-          <span>No Pressure</span>
+          {trust.map((t, i) => (
+            <Fragment key={t}>
+              {i > 0 && <span aria-hidden="true">•</span>}
+              <span>{t}</span>
+            </Fragment>
+          ))}
         </div>
       </motion.div>
 
@@ -67,7 +83,7 @@ export function Hero() {
       <div className="relative z-0 aspect-video w-full md:absolute md:inset-0 md:aspect-auto md:h-auto">
         <Image
           src="/images/hero-scene.jpg"
-          alt="Bordi & Sons family roofing project — finished home with family admiring the new roof"
+          alt={imageAlt}
           fill
           priority
           sizes="100vw"

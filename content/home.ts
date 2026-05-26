@@ -31,7 +31,125 @@ export type Testimonial = { quote: string; name: string; town: string };
 
 export type QA = { q: string; a: string };
 
+// Roof-animation label, positioned in the 1284×716 frame coordinate space.
+export type RoofLabel = {
+  name: string;
+  description: string;
+  step: number; // installation sequence (a roof is built deck-up)
+  dotX: number; // target position (where the component sits)
+  dotY: number;
+  textX: number; // text position (offset to the side)
+  textY: number;
+  lineEndX: number; // where the connector line ends, near the text
+  side: "left" | "right";
+  threshold: number; // scroll progress at which the label fades in
+};
+
+export type ShingleColor = { name: string; file: string };
+
 export const homeContent = {
+  hero: {
+    kicker: "FAMILY-OWNED ROOFING · NEW JERSEY",
+    headline: "Roofing you don't have to worry about.",
+    subhead:
+      "Honest pricing. Premium materials. A Bordi on every job, because our name is on the line. No high-pressure sales. No surprises after the contract is signed.",
+    imageAlt:
+      "Bordi & Sons family roofing project — finished home with family admiring the new roof",
+    primaryCtaLabel: "Get an Instant Estimate",
+    secondaryCta: { label: "Watch How It's Built", href: "#process" },
+    trust: ["Instant Estimate", "Honest Pricing", "No Pressure"],
+  },
+
+  cta: {
+    heading: "Ready When You Are.",
+    subhead:
+      "Get an honest estimate in minutes, not days. No phone calls, no pressure, no surprises.",
+    ctaLabel: "Get an Instant Estimate",
+    truckAlt: "Bordi & Sons Roofing service truck",
+  },
+
+  roofAnimation: {
+    eyebrow: "HOW WE BUILD A ROOF",
+    heading: "Six layers. Zero shortcuts.",
+    subhead:
+      "Every Bordi roof includes the complete GAF system — installed exactly as the manufacturer specifies. No corner-cutting, no surprises.",
+    // Coordinates in SVG units (viewBox 0 0 1284 716). dotY values tuned so each
+    // dot lands on its floating layer in the final frame.
+    labels: [
+      {
+        name: "RIDGE CAP SHINGLES",
+        description:
+          "Seals the ridge — the most vulnerable point on any roof. Built to withstand wind and weather.",
+        step: 6,
+        dotX: 680, dotY: 70, textX: 1080, textY: 70, lineEndX: 1070, side: "right", threshold: 0.69,
+      },
+      {
+        name: "RIDGE VENT",
+        description:
+          "Continuous attic ventilation regulates temperature and moisture, releasing trapped heat. Extends roof life by years.",
+        step: 5,
+        dotX: 490, dotY: 70, textX: 210, textY: 58, lineEndX: 220, side: "left", threshold: 0.56,
+      },
+      {
+        name: "ARCHITECTURAL SHINGLES",
+        description:
+          "Beautiful dimensional shingles — the striking, visible heart of your roofing system. Available in dozens of colors to match any taste or home, and built for decades of dependable protection.",
+        step: 4,
+        dotX: 720, dotY: 137, textX: 1080, textY: 187, lineEndX: 1070, side: "right", threshold: 0.43,
+      },
+      {
+        name: "STARTER STRIP SHINGLES",
+        description:
+          "Premium pre-cut strips create the first sealed row at the eaves. Locks every shingle above firmly in place, preventing blow-offs.",
+        step: 3,
+        dotX: 620, dotY: 210, textX: 210, textY: 322, lineEndX: 220, side: "left", threshold: 0.30,
+      },
+      {
+        name: "LEAK BARRIER",
+        description:
+          "Self-adhering rubberized membrane along vulnerable eaves and valleys. Stops ice dams and wind-driven rain dead in their tracks.",
+        step: 2,
+        dotX: 720, dotY: 235, textX: 1080, textY: 335, lineEndX: 1070, side: "right", threshold: 0.17,
+      },
+      {
+        name: "ROOF DECK PROTECTION",
+        description:
+          "Synthetic underlayment is your roof's foundation. Protects your home from water and weather before shingles are even installed.",
+        step: 1,
+        dotX: 430, dotY: 140, textX: 210, textY: 190, lineEndX: 220, side: "left", threshold: 0.04,
+      },
+    ] satisfies RoofLabel[],
+  },
+
+  shingles: {
+    eyebrow: "THE BORDI SYSTEM",
+    heading: "18 Authentic Colors. One Standard of Quality.",
+    subhead:
+      "Every GAF Timberline HDZ shingle is engineered to the same lifetime-rated specification. The only thing that changes is the character of your home.",
+    // `name` (uppercase) is the favorite identifier; `file` is the basename in
+    // /public/images.
+    colors: [
+      { name: "OYSTER GRAY", file: "01-oyster-gray" },
+      { name: "PEWTER GRAY", file: "02-pewter-gray" },
+      { name: "FOX HOLLOW GRAY", file: "03-fox-hollow-gray" },
+      { name: "SLATE", file: "04-slate" },
+      { name: "WILLIAMSBURG SLATE", file: "05-williamsburg-slate" },
+      { name: "BISCAYNE BLUE", file: "06-biscayne-blue" },
+      { name: "WEATHERED WOOD", file: "07-weathered-wood" },
+      { name: "CLIFFSIDE", file: "08-cliffside" },
+      { name: "MIDNIGHT MESA", file: "09-midnight-mesa" },
+      { name: "CHARCOAL", file: "10-charcoal" },
+      { name: "HUNTER GREEN", file: "11-hunter-green" },
+      { name: "PATRIOT RED", file: "12-patriot-red" },
+      { name: "SIERRA SAND", file: "13-sierra-sand" },
+      { name: "BARKWOOD", file: "14-barkwood" },
+      { name: "SHAKEWOOD", file: "15-shakewood" },
+      { name: "HICKORY", file: "16-hickory" },
+      { name: "MISSION BROWN", file: "17-mission-brown" },
+      { name: "CHESTNUT VALLEY", file: "18-chestnut-valley" },
+    ] satisfies ShingleColor[],
+  },
+
   features: {
     heading: "Anatomy of a Premium Roof",
     subhead: "Every layer matters. Here's what's protecting your home.",
