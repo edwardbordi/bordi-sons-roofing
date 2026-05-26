@@ -11,6 +11,7 @@ const sections: Section[] = [
   { id: "hero", label: "Home" },
   { id: "process", label: "Process" },
   { id: "features", label: "Anatomy" },
+  { id: "colors", label: "Colors" },
   { id: "trust", label: "Trust" },
   { id: "cta", label: "Get Started" },
   { id: "footer", label: "Contact" },

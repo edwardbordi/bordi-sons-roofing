@@ -1,0 +1,4 @@
+/* Widget styles. Tailwind v4 single-import entry — utilities used by the
+   RoofWidget compile from this. In a later phase this same stylesheet is
+   injected into the Shadow DOM so it can't leak into the host theme. */
+@import "tailwindcss";

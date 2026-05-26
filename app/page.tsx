@@ -2,6 +2,7 @@ import { Navbar } from "@/components/Navbar";
 import ScrollNav from "@/components/ScrollNav";
 import { Hero } from "@/components/Hero";
 import { ScrollAnimation } from "@/components/ScrollAnimation";
+import { ShingleColorGrid } from "@/components/ShingleColorGrid";
 import { Features } from "@/components/Features";
 import { WhyChooseUs } from "@/components/WhyChooseUs";
 import { CTASection } from "@/components/CTASection";
@@ -16,6 +17,7 @@ export default function Home() {
         <Hero />
         <ScrollAnimation />
         <Features />
+        <ShingleColorGrid />
         <WhyChooseUs />
         <CTASection />
       </main>

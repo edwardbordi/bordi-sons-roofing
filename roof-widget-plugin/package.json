@@ -1,0 +1,29 @@
+{
+  "name": "roof-system-widget",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Scroll-driven roof anatomy widget — standalone WordPress plugin (front-end widget). See SPEC.md.",
+  "scripts": {
+    "dev": "vite",
+    "typecheck": "tsc --noEmit",
+    "build:demo": "tsc --noEmit && vite build",
+    "build:plugin": "tsc --noEmit && vite build --config vite.config.plugin.ts",
+    "build:admin": "tsc --noEmit && vite build --config vite.config.admin.ts",
+    "frames": "node scripts/process-frames.mjs"
+  },
+  "dependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@vitejs/plugin-react": "^4.3.0",
+    "sharp": "^0.34.5",
+    "tailwindcss": "^4.0.0",
+    "typescript": "^5.6.0",
+    "vite": "^6.0.0"
+  }
+}

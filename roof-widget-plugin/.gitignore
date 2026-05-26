@@ -1,0 +1,9 @@
+node_modules/
+demo-dist/
+assets/dist/
+*.log
+
+# Generated frame variants — source of truth is assets/frames/full/*.jpg.
+# Regenerate with `npm run frames` (part of the plugin build).
+assets/frames/full/*.webp
+assets/frames/half/

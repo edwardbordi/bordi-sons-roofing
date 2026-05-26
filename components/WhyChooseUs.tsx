@@ -13,19 +13,19 @@ const reasons: Reason[] = [
     icon: Award,
     title: "GAF Master Elite Certified",
     description:
-      "Less than 2% of roofers nationwide earn this credential.",
+      "Fewer than 2% of roofers earn GAF's top certification — meaning our work meets the manufacturer's strictest standards and unlocks GAF's best warranties.",
   },
   {
     icon: ShieldCheck,
     title: "Lifetime Material Warranty",
     description:
-      "Industry-leading coverage on every project we install.",
+      "Every roof we install comes with GAF's full lifetime warranty on shingles and materials. If something fails, it's on us and the manufacturer — never on you.",
   },
   {
     icon: Users,
-    title: "Family-Owned & Trusted",
+    title: "Family-Owned & Operated",
     description:
-      "Local roofing done with the integrity your family deserves.",
+      "A New Jersey family business where the owner answers the phone and shows up to every job site. The name on the truck is the name on the line.",
   },
 ];
 

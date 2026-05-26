@@ -69,7 +69,10 @@ export function Features() {
                 <Card className="h-full border border-slate-200 bg-white text-slate-900 shadow-sm ring-0">
                   <CardHeader>
                     <Icon className="size-10 text-red-600" />
-                    <CardTitle className="mt-4 text-xl font-semibold text-slate-900">
+                    <CardTitle className="mt-4 flex items-center gap-2 text-xl font-semibold text-slate-900">
+                      <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-red-600 text-xs font-bold text-white">
+                        {i + 1}
+                      </span>
                       {feature.title}
                     </CardTitle>
                   </CardHeader>

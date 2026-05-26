@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
+import { CtaButton } from "@/components/ui/cta-button";
 
 const navLinks = [
   { label: "Services", href: "#features" },
@@ -16,45 +16,80 @@ export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
+    // Throttle to one update per frame; state only changes when crossing 80px.
+    let ticking = false;
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        setScrolled(window.scrollY > 80);
+        ticking = false;
+      });
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   return (
-    <header
-      className={`sticky top-0 z-50 w-full border-b border-slate-200 backdrop-blur transition-colors duration-300 ${
-        scrolled ? "bg-white/95" : "bg-white/80"
-      }`}
-    >
+    <header className="fixed top-0 z-50 w-full bg-transparent">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        <Link href="/" className="flex items-center">
+        <Link
+          href="/"
+          aria-hidden={scrolled}
+          tabIndex={scrolled ? -1 : 0}
+          className={`flex items-center transition-opacity duration-300 ${
+            scrolled ? "pointer-events-none opacity-0" : "opacity-100"
+          }`}
+        >
           <Image
             src="/images/bordi-logo.png"
             alt="Bordi & Sons Roofing"
-            width={56}
-            height={56}
+            width={88}
+            height={88}
             loading="eager"
-            className="h-12 md:h-14 w-auto"
+            className="-ml-2 translate-y-2"
+            style={{ width: 88, height: 88, maxWidth: "none" }}
           />
         </Link>
 
-        <nav className="hidden items-center gap-8 md:flex">
+        <nav
+          className={`hidden items-center gap-8 rounded-full border px-6 py-2 transition-colors duration-300 md:flex ${
+            scrolled
+              ? "border-slate-200 bg-white/80 backdrop-blur-sm"
+              : "border-transparent"
+          }`}
+        >
           {navLinks.map((link) => (
             <a
               key={link.label}
               href={link.href}
-              className="text-sm font-medium text-slate-700 transition-colors hover:text-slate-900"
+              className={`text-sm font-medium transition-colors ${
+                scrolled
+                  ? "text-slate-700 hover:text-slate-900"
+                  : "text-slate-900 hover:text-slate-600"
+              }`}
             >
               {link.label}
             </a>
           ))}
         </nav>
 
-        <Button className="bg-red-600 font-semibold text-white hover:bg-red-700">
-          Get a Free Quote
-        </Button>
+        {/* Standalone header CTA — shown over the hero, hidden once scrolled. */}
+        <div
+          aria-hidden={scrolled}
+          className={`transition-opacity duration-300 ${
+            scrolled ? "pointer-events-none opacity-0" : "opacity-100"
+          }`}
+        >
+          <CtaButton
+            variant="primary"
+            href="tel:+15555555555"
+            tabIndex={scrolled ? -1 : undefined}
+          >
+            Call (555) 555-5555
+          </CtaButton>
+        </div>
       </div>
     </header>
   );

@@ -45,13 +45,17 @@ export function Footer() {
               <Image
                 src="/images/bordi-logo.png"
                 alt="Bordi & Sons Roofing"
-                width={120}
-                height={120}
-                className="h-24 w-auto mb-4"
+                width={144}
+                height={144}
+                className="-mt-3 -ml-5 mb-4 h-36 w-auto"
               />
               <p className="mt-3 max-w-xs text-sm text-slate-700">
-                Premium GAF-certified roofing systems built to protect what
-                matters most.
+                A roof is a promise — to keep a family safe and dry for decades.
+                We started Bordi &amp; Sons to keep that promise honestly: a
+                family-run, GAF-certified team that treats every home in our
+                community like our own. Premium materials, meticulous work, and
+                straight answers from the first quote to the final nail — no
+                pressure, no shortcuts, no surprises.
               </p>
             </div>
 
@@ -82,10 +86,10 @@ export function Footer() {
               <ul className="mt-4 space-y-2 text-sm text-slate-700">
                 <li>
                   <a
-                    href="tel:+15551234567"
+                    href="tel:+15555555555"
                     className="transition-colors hover:text-slate-900"
                   >
-                    (555) 123-4567
+                    (555) 555-5555
                   </a>
                 </li>
                 <li>
@@ -96,6 +100,7 @@ export function Footer() {
                     hello@bordiandsons.com
                   </a>
                 </li>
+                <li>Haddon Twp, NJ</li>
               </ul>
             </div>
 
