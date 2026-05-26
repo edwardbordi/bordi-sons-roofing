@@ -1,66 +1,6 @@
 import { Star } from "lucide-react";
 import { FadeIn } from "@/components/FadeIn";
-
-type Testimonial = {
-  quote: string;
-  name: string;
-  town: string;
-};
-
-// Made-up reviews for the demo, branded Bordi & Sons / South Jersey towns.
-const columnA: Testimonial[] = [
-  {
-    quote:
-      "Honestly the easiest contractor experience we've had. They showed up exactly when they said, cleaned up every last nail, and the roof looks incredible.",
-    name: "Maria DeLuca",
-    town: "Haddon Twp",
-  },
-  {
-    quote:
-      "A Bordi was on the job every single day. You can tell it's a real family business — they actually care how the work turns out.",
-    name: "Tom Reynolds",
-    town: "Cherry Hill",
-  },
-  {
-    quote:
-      "Got three quotes and Bordi & Sons was the only one who walked me through every layer of the roof. No pressure, just straight answers.",
-    name: "Priya Nair",
-    town: "Collingswood",
-  },
-  {
-    quote:
-      "A storm took half our shingles off. They had us tarped and fully repaired faster than anyone else could even schedule an estimate.",
-    name: "Greg Halloran",
-    town: "Voorhees",
-  },
-];
-
-const columnB: Testimonial[] = [
-  {
-    quote:
-      "The crew was respectful, on time, and the cleanup was spotless. My new roof looks even better than I imagined it would.",
-    name: "Danielle Foster",
-    town: "Moorestown",
-  },
-  {
-    quote:
-      "From the estimate to the final walkthrough everything was clear and upfront. Not a single surprise charge at the end.",
-    name: "Kevin Marsh",
-    town: "Marlton",
-  },
-  {
-    quote:
-      "We love our new roof. The whole team was professional and the workmanship is top-notch. Highly recommend Bordi & Sons to anyone.",
-    name: "Sarah Whitman",
-    town: "Haddonfield",
-  },
-  {
-    quote:
-      "They treated my home like it was their own. Quality materials, a fair price, and a warranty that actually means something.",
-    name: "Anthony Russo",
-    town: "Audubon",
-  },
-];
+import type { Testimonial } from "@/content/home";
 
 function Stars() {
   return (
@@ -120,7 +60,19 @@ function MarqueeColumn({
 const FADE_MASK =
   "linear-gradient(to bottom, transparent 0%, #000 9%, #000 91%, transparent 100%)";
 
-export function Testimonials() {
+export function Testimonials({
+  eyebrow,
+  heading,
+  subhead,
+  columnA,
+  columnB,
+}: {
+  eyebrow: string;
+  heading: string;
+  subhead: string;
+  columnA: Testimonial[];
+  columnB: Testimonial[];
+}) {
   return (
     <section id="testimonials" className="overflow-hidden bg-stone-50 px-4 py-24 sm:px-6 lg:px-8">
       {/* Marquee animation. Defined here (not Tailwind) so the seamless loop,
@@ -142,15 +94,12 @@ export function Testimonials() {
         <div className="lg:w-[40%]">
           <FadeIn>
             <span className="inline-flex items-center rounded-full bg-white/60 px-3.5 py-1.5 text-xs font-semibold tracking-widest text-slate-600 ring-1 ring-inset ring-slate-900/10 backdrop-blur-md">
-              TRUSTED BY HOMEOWNERS
+              {eyebrow}
             </span>
             <h2 className="mt-6 text-4xl font-bold tracking-tight text-slate-900 md:text-5xl">
-              See Why Families Choose Bordi &amp; Sons With Confidence
+              {heading}
             </h2>
-            <p className="mt-5 max-w-md text-lg text-slate-600">
-              Real reviews from New Jersey homeowners who trusted us with their
-              roof — and would do it again.
-            </p>
+            <p className="mt-5 max-w-md text-lg text-slate-600">{subhead}</p>
           </FadeIn>
         </div>
 

@@ -11,6 +11,7 @@ import { FAQ } from "@/components/FAQ";
 import { CallbackForm } from "@/components/CallbackForm";
 import { Footer } from "@/components/Footer";
 import { FloatingEstimate } from "@/components/FloatingEstimate";
+import { homeContent } from "@/content/home";
 
 export default function Home() {
   return (
@@ -19,13 +20,13 @@ export default function Home() {
       <ScrollNav />
       <main>
         <Hero />
-        <Testimonials />
+        <Testimonials {...homeContent.testimonials} />
         <ScrollAnimation />
-        <Features />
+        <Features {...homeContent.features} />
         <ShingleColorGrid />
-        <WhyChooseUs />
+        <WhyChooseUs {...homeContent.whyChooseUs} />
         <CTASection />
-        <FAQ />
+        <FAQ {...homeContent.faq} />
         <CallbackForm />
       </main>
       <Footer />
